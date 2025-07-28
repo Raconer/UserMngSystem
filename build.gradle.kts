@@ -37,5 +37,8 @@ subprojects {
         add("testImplementation", "org.springframework.boot:spring-boot-starter-test")
         add("testImplementation", "org.jetbrains.kotlin:kotlin-test-junit5")
         add("testRuntimeOnly", "org.junit.platform:junit-platform-launcher")
+
+        // SWAGGER
+        add("implementation", "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
     }
 }
