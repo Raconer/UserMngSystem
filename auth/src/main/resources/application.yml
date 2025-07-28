@@ -48,3 +48,8 @@ spring:
 logging:
   level:
     org.springframework.security: info
+
+common:
+  jwt:
+    secret_key: dGhpc2lzMzJiYnl0ZXNsb25nc2VjdXJla2V5IQ==
+    expire_time: 3600000 # 1시간
