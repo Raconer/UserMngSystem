@@ -1,6 +1,6 @@
 package com.spring.module.auth.infrastructure.adapter.input.rest.dto.request
 
 data class SearchUserRequest(
-    val page: Int = 1,
-    val size: Int = 10
+    var page: Int = 1,
+    var size: Int = 10
 )

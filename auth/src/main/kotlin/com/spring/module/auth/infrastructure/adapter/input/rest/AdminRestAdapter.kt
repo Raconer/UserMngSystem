@@ -15,7 +15,7 @@ class AdminRestAdapter(
 
     // 회원 조회
     @GetMapping
-    fun searchUsers(@ModelAttribute searchUserRequest: SearchUserRequest): ResponseEntity<out Any> {
+    fun searchUsers( searchUserRequest: SearchUserRequest): ResponseEntity<out Any> {
         val result = this.searchUserUseCase.execute(searchUserRequest)
         return CommonRes.Def(result)
     }
