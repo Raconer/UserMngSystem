@@ -11,4 +11,8 @@ class UserRepositoryAdapter(
     override fun getAll(): List<User> {
         return this.userJpaRepository.findAll()
     }
+
+    override fun save(user: User): User {
+        return this.userJpaRepository.save(user)
+    }
 }
