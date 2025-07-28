@@ -2,7 +2,10 @@ package com.spring.module.auth.infrastructure.adapter.output.persistence.reposit
 
 import com.spring.module.auth.application.port.out.UserRepositoryPort
 import com.spring.module.auth.domain.model.User
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Component
+
 
 @Component
 class UserRepositoryAdapter(
@@ -16,5 +19,10 @@ class UserRepositoryAdapter(
     override fun save(user: User): User {
 
         return this.userJpaRepository.save(user)
+    }
+
+    // 사용자 조회 리스트
+    override fun searchUsers(pageable: Pageable): Page<User> {
+        return this.userJpaRepository.searchUsers(pageable)
     }
 }

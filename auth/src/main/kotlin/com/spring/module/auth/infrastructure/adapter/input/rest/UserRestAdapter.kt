@@ -1,6 +1,6 @@
 package com.spring.module.auth.infrastructure.adapter.input.rest
 
-import com.spring.module.auth.application.port.`in`.GetUserUseCase
+import com.spring.module.auth.application.port.`in`.SearchUserUseCase
 import com.spring.module.auth.application.port.`in`.RegisterUserUseCase
 import com.spring.module.auth.infrastructure.adapter.input.rest.common.CommonRes
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.RegisterUserRequest
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/user")
 class UserRestAdapter(
-    private val getUserUseCase: GetUserUseCase,
+    private val searchUserUseCase: SearchUserUseCase,
     private val registerUserUseCase: RegisterUserUseCase
 ) {
 
