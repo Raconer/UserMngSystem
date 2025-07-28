@@ -1,10 +1,6 @@
 package com.spring.module.auth.infrastructure.adapter.input.rest.dto.request
 
-import jakarta.validation.constraints.Digits
-import jakarta.validation.constraints.NotBlank
-import jakarta.validation.constraints.NotNull
-import jakarta.validation.constraints.Pattern
-import jakarta.validation.constraints.Size
+import jakarta.validation.constraints.*
 
 data class RegisterUserRequest (
     @field:NotBlank(message = "아이디는 필수입니다.")

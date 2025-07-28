@@ -1,7 +1,6 @@
 package com.spring.module.auth.application.port.out
 
 import com.spring.module.auth.domain.model.User
-import org.springframework.http.ResponseEntity
 
 interface UserRepositoryPort {
     // TODO : 삭제 예정

@@ -1,8 +1,8 @@
 server:
-  servlet:
-    context-path: /api
   port: 8080
   shutdown: graceful
+  servlet:
+    context-path: /api
 
 springdoc:
   api-docs:
@@ -44,3 +44,7 @@ spring:
     open-in-view: false
     defer-datasource-initialization: true
     show-sql: true
+
+logging:
+  level:
+    org.springframework.security: DEBUG

@@ -2,14 +2,11 @@ package com.spring.module.auth.infrastructure.adapter.input.rest
 
 import com.spring.module.auth.application.port.`in`.GetUserUseCase
 import com.spring.module.auth.application.port.`in`.RegisterUserUseCase
-import com.spring.module.auth.application.service.RegisterUserService
-import com.spring.module.auth.domain.model.User
 import com.spring.module.auth.infrastructure.adapter.input.rest.common.CommonRes
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.RegisterUserRequest
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 
 @RestController
