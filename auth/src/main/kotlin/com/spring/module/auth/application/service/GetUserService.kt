@@ -8,12 +8,14 @@ import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.Sear
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class GetUserService(
     private val userRepositoryPort: UserRepositoryPort
 ) : SearchUserUseCase {
 
+    @Transactional(readOnly = true)
     override fun execute(searchUserRequest: SearchUserRequest): PageResponse<User> {
         val pageable : Pageable = PageRequest.of(searchUserRequest.page - 1, searchUserRequest.size)
         val pageResult =  userRepositoryPort.searchUsers(pageable)

@@ -9,6 +9,7 @@ import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.Upda
 import com.spring.module.auth.infrastructure.adapter.input.rest.exception.UserNotFoundException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class RegisterUserService(
@@ -17,11 +18,12 @@ class RegisterUserService(
     private val passwordEncoder: PasswordEncoder
 ) : RegisterUserUseCase {
 
+    @Transactional
     override fun register(registerUserRequest: RegisterUserRequest): User {
         val user = this.registerUserMapper.toEntity(registerUserRequest, passwordEncoder)
         return this.userRepositoryPort.save(user)
     }
-
+    @Transactional
     override fun update(id:Long, updateUserRequest: UpdateUserRequest): User {
         val user = this.userRepositoryPort.findById(id)?: throw UserNotFoundException()
 
@@ -32,7 +34,7 @@ class RegisterUserService(
 
         return this.userRepositoryPort.save(updateUser)
     }
-
+    @Transactional
     override fun deleteById(id: Long) {
         this.userRepositoryPort.deleteById(id)
     }

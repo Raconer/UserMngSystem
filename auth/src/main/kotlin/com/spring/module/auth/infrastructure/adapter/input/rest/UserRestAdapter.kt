@@ -4,9 +4,11 @@ import com.spring.module.auth.application.port.`in`.SearchUserUseCase
 import com.spring.module.auth.application.port.`in`.RegisterUserUseCase
 import com.spring.module.auth.infrastructure.adapter.input.rest.common.CommonRes
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.RegisterUserRequest
+import com.spring.module.auth.infrastructure.adapter.input.rest.dto.sign.SignDTO
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -23,7 +25,8 @@ class UserRestAdapter(
 
     // 상세 조회
     @GetMapping
-    fun getUser(): ResponseEntity<out Any> {
+    fun getUser(@AuthenticationPrincipal signDTO: SignDTO): ResponseEntity<out Any> {
+        println(signDTO)
         return CommonRes.Basic(HttpStatus.OK)
     }
 

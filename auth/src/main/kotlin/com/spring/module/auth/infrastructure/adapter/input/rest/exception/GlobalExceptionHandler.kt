@@ -20,4 +20,10 @@ class GlobalExceptionHandler {
         }
         return CommonRes.Except(HttpStatus.BAD_REQUEST, errors)
     }
+
+    @ExceptionHandler(Exception::class)
+    fun handleAll(ex: Exception): ResponseEntity<Any> {
+        val message = ex.message ?: ResponseMessages.UNKNOWN_ERROR
+        return CommonRes.Except(HttpStatus.INTERNAL_SERVER_ERROR, message)
+    }
 }
