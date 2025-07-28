@@ -6,13 +6,13 @@ import org.springframework.data.domain.Pageable
 
 
 interface UserRepositoryPort {
-    // TODO : 삭제 예정
-    fun getAll(): List<User>
 
     // CREATE
     // 회원 가입
     fun save(user: User): User
 
     // READ
+    fun findById(id: Long): User?
     fun searchUsers(pageable:Pageable):Page<User>
+
 }

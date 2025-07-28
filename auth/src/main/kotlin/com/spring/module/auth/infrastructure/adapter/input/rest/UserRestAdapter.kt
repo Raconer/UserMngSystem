@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/user")
 class UserRestAdapter(
-    private val searchUserUseCase: SearchUserUseCase,
     private val registerUserUseCase: RegisterUserUseCase
 ) {
 

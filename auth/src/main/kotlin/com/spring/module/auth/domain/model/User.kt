@@ -2,9 +2,11 @@ package com.spring.module.auth.domain.model
 
 import com.spring.module.auth.domain.common.BasicEntity
 import jakarta.persistence.*
+import org.hibernate.annotations.DynamicUpdate
 
 @Entity
 @Table(name = "`user`", catalog = "user_mng")
+@DynamicUpdate
 data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
