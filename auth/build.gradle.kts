@@ -25,9 +25,14 @@ dependencies {
     // JPA
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
+    // jpa query logging
+    implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.1")
+
     // QueryDSL
     implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
     kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
+
+
 
     // Map Struct
     implementation("org.mapstruct:mapstruct:1.5.5.Final")
