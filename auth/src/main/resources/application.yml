@@ -36,7 +36,7 @@ spring:
       format_sql: true
     properties:
       hibernate:
-        format_sql: true
+        format_sql: false
         use_sql_comments: false
         order_inserts: true
         jdbc:
