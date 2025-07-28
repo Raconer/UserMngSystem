@@ -7,4 +7,5 @@ import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.Upda
 interface RegisterUserUseCase {
     fun register(registerUserRequest: RegisterUserRequest) : User
     fun update(id:Long, updateUserRequest: UpdateUserRequest) : User
+    fun deleteById(id:Long)
 }

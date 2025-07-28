@@ -15,4 +15,7 @@ interface UserRepositoryPort {
     fun findById(id: Long): User?
     fun searchUsers(pageable:Pageable):Page<User>
 
+    // DELETE
+    fun deleteById(id: Long)
+
 }

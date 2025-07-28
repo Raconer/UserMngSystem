@@ -32,4 +32,8 @@ class RegisterUserService(
 
         return this.userRepositoryPort.save(updateUser)
     }
+
+    override fun deleteById(id: Long) {
+        this.userRepositoryPort.deleteById(id)
+    }
 }

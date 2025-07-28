@@ -39,7 +39,15 @@ class AdminRestAdapter(
 
     // 삭제
     @DeleteMapping("/{id}")
-    fun delete(): ResponseEntity<Any> {
+    fun delete(
+        @PathVariable id: Long
+    ): ResponseEntity<Any> {
+        if(id <= 0){
+            throw MissingUserIdException()
+        }
+
+        this.registerUserUseCase.deleteById(id)
+
         return CommonRes.Basic(HttpStatus.OK)
     }
 }

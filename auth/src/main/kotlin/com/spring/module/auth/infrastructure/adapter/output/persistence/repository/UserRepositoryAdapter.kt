@@ -11,13 +11,14 @@ import org.springframework.stereotype.Component
 @Component
 class UserRepositoryAdapter(
     private val userJpaRepository: UserJpaRepository,
-
 ) : UserRepositoryPort{
 
+    // 등록
     override fun save(user: User): User {
         return this.userJpaRepository.save(user)
     }
 
+    // 단건 조회
     override fun findById(id: Long): User? {
         return this.userJpaRepository.findByIdOrNull(id)
     }
@@ -25,5 +26,10 @@ class UserRepositoryAdapter(
     // 사용자 조회 리스트
     override fun searchUsers(pageable: Pageable): Page<User> {
         return this.userJpaRepository.searchUsers(pageable)
+    }
+
+    // 사용자 정보 삭제
+    override fun deleteById(id: Long) {
+        this.userJpaRepository.deleteById(id)
     }
 }
