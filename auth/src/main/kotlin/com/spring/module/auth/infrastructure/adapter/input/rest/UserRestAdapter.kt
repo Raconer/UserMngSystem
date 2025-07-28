@@ -18,9 +18,8 @@ class UserRestAdapter(
 
     // 회원가입
     @PostMapping
-    fun signUp(@Valid @RequestBody registerUserRequest: RegisterUserRequest) : ResponseEntity<Any>{
-        this.registerUserUseCase.register(registerUserRequest)
-        return  CommonRes.Basic(HttpStatus.OK)
+    fun signUp(@Valid @RequestBody registerUserRequest: RegisterUserRequest) : ResponseEntity<out Any>{
+        return CommonRes.Def(this.registerUserUseCase.register(registerUserRequest))
     }
 
     // 상세 조회
