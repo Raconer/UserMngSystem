@@ -24,8 +24,12 @@ class UserRepositoryAdapter(
         return this.userJpaRepository.findByIdOrNull(id)
     }
 
-    override fun findByUsername(username: String): SignDTO? {
+    override fun findByUsername(username: String): User? {
         return this.userJpaRepository.findByUsername(username)
+    }
+
+    override fun findSignInfoByUsername(username: String): SignDTO? {
+        return this.userJpaRepository.findSignInfoByUsername(username)
     }
 
     // 사용자 조회 리스트

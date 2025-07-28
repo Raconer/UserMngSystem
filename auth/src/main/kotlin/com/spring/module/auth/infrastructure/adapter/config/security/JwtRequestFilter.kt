@@ -17,7 +17,7 @@ class JwtRequestFilter(
     private val jwtUtil: JwtUtil,
 ) : OncePerRequestFilter() {
 
-    private val EXCLUDE_URL = arrayListOf("sign/in")
+    private val EXCLUDE_URL = arrayListOf("/api/sign/in")
 
     override fun doFilterInternal(
         request: HttpServletRequest,

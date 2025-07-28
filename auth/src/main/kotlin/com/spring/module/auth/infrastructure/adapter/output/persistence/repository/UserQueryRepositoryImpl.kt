@@ -29,7 +29,7 @@ class UserQueryRepositoryImpl(
         return PageImpl(results, pageable, total)
     }
 
-    override fun findByUsername(username: String): SignDTO? {
+    override fun findSignInfoByUsername(username: String): SignDTO? {
         return this.queryFactory.select(
             Projections.constructor(
                 SignDTO::class.java,

@@ -22,4 +22,7 @@ abstract class BasicEntity {
     @LastModifiedDate
     @Column(name = "updated_at")
     private var updatedAt: LocalDateTime? = null // 수정일시
+
+    fun getCreatedAt(): LocalDateTime? = createdAt
+    fun getUpdatedAt(): LocalDateTime? = updatedAt
 }

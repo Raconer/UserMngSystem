@@ -1,19 +1,29 @@
 package com.spring.module.auth.application.service
 
+import com.spring.module.auth.application.mapper.user.RegisterUserMapper
 import com.spring.module.auth.application.port.`in`.SearchUserUseCase
 import com.spring.module.auth.application.port.out.UserRepositoryPort
 import com.spring.module.auth.domain.model.User
 import com.spring.module.auth.infrastructure.adapter.input.rest.common.PageResponse
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.SearchUserRequest
+import com.spring.module.auth.infrastructure.adapter.input.rest.dto.response.UserInfoResponse
+import com.spring.module.auth.infrastructure.rest.constant.ResponseMessages
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 class GetUserService(
-    private val userRepositoryPort: UserRepositoryPort
+    private val userRepositoryPort: UserRepositoryPort,
+    private val registerUserMapper: RegisterUserMapper
 ) : SearchUserUseCase {
+
+    override fun getByUsername(username: String): UserInfoResponse {
+        val user = this.userRepositoryPort.findByUsername(username)?: throw UsernameNotFoundException(ResponseMessages.USER_NOT_FOUND)
+        return this.registerUserMapper.toInfo(user)
+    }
 
     @Transactional(readOnly = true)
     override fun execute(searchUserRequest: SearchUserRequest): PageResponse<User> {

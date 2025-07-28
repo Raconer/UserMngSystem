@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/user")
 class UserRestAdapter(
-    private val registerUserUseCase: RegisterUserUseCase
+    private val registerUserUseCase: RegisterUserUseCase,
+    private val searchUserUseCase: SearchUserUseCase
 ) {
 
     // 회원가입
@@ -26,8 +27,7 @@ class UserRestAdapter(
     // 상세 조회
     @GetMapping
     fun getUser(@AuthenticationPrincipal signDTO: SignDTO): ResponseEntity<out Any> {
-        println(signDTO)
-        return CommonRes.Basic(HttpStatus.OK)
-    }
 
+        return CommonRes.Def(this.searchUserUseCase.getByUsername(signDTO.username))
+    }
 }
