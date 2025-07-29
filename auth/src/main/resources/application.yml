@@ -53,3 +53,12 @@ common:
   jwt:
     secret_key: dGhpc2lzMzJiYnl0ZXNsb25nc2VjdXJla2V5IQ==
     expire_time: 3600000 # 1시간
+
+
+
+# SEND Kakao
+external:
+  kakao:
+    url: http://localhost:8081/kakaotalk-messages
+    username: autoever
+    password: 1234

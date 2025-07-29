@@ -8,6 +8,7 @@ import com.spring.module.auth.infrastructure.adapter.input.rest.dto.sign.SignDTO
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
+import java.time.Year
 
 class UserQueryRepositoryImpl(
     private val queryFactory: JPAQueryFactory
@@ -39,6 +40,18 @@ class UserQueryRepositoryImpl(
         ).from(user)
             .where(user.username.eq(username))
             .fetchOne()
+    }
+
+    override fun findByAgeGroup(ageGroup: Int): List<User> {
+        val currentYear = Year.now().value
+        val minYear = currentYear - (ageGroup + 9)
+        val maxYear = currentYear - ageGroup
+
+        return this.queryFactory.selectFrom(user)
+            .where(
+                user.birthYear.between(minYear, maxYear)
+            ).fetch()
+
     }
 
 }

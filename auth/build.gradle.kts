@@ -16,9 +16,6 @@ dependencies {
     // JWT에서 JSON 파싱을 위한 Jackson 연동
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
 
-    // Bean Validation(JSR-380) 사용 (예: @Valid, @NotNull 등)
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-
     // MySQL DB 연동을 위한 JDBC 드라이버
     runtimeOnly("com.mysql:mysql-connector-j")
 
@@ -28,6 +25,7 @@ dependencies {
     // SQL 로그 출력용(P6Spy로 JPA 쿼리 로깅 보기 좋게)
     implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.1")
 
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     // QueryDSL JPA 지원 (타입 안전한 쿼리 작성)
     implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
     // QueryDSL Q타입 생성용 APT 프로세서

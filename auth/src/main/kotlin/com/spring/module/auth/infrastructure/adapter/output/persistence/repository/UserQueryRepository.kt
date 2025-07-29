@@ -9,4 +9,5 @@ import org.springframework.data.domain.Pageable
 interface UserQueryRepository {
     fun searchUsers(pageable: Pageable) : Page<User>
     fun findSignInfoByUsername(username: String): SignDTO?
+    fun findByAgeGroup(ageGroup: Int): List<User>
 }

@@ -5,7 +5,7 @@
 ### Auth 
 
 ````shell
-./
+auth/
 ├── AuthApplication.kt  
 │   → [애플리케이션 진입점] Spring Boot 애플리케이션 main 클래스
 │   → 목적: 서버 실행, 컴포넌트 스캔 시작 지점
@@ -103,4 +103,32 @@
             └── ResponseMessages.kt → [object] 에러 메시지 등 공통 문자열 정의
 ````
 
-#### Package 
+### Kakao
+
+```shell
+kakao/
+├── application                             → [애플리케이션 계층] 유스케이스 구현 및 포트 정의
+│ ├── port                                → [Port 계층] 도메인과 인프라를 분리하기 위한 인터페이스 집합
+│ │ ├── in
+│ │ │ └── SendKakaoMessageUseCase.kt         → [interface] 외부에서 메시지 발송 요청 시 사용할 유스케이스 정의
+│ │ └── out
+│ │     └── KafkaMessageProducerPort.kt        → [interface] Kafka 메시지를 외부로 발행하기 위한 출력 포트 정의
+│ └── service
+│     └── SendKakaoMessageService.kt             → [class] SendKakaoMessageUseCase 구현체, Kafka 포트를 통해 메시지를 발행하는 핵심 로직 포함
+│ 
+├── domain                                   → [도메인 계층] 비즈니스 핵심 개념 표현
+│ └── model
+│     └── KakaoMessage.kt                        → [data class] 메시지 내용, 수신자, 템플릿 등의 도메인 모델 정의
+│ 
+└── infrastructure                          → [인프라 계층] 외부 시스템 연동 및 설정 구현체
+    └── adapter                             → [어댑터 계층] 실제 외부와 연결되는 구현들
+        ├── input                           → [입력 어댑터] 외부 요청을 받아 유스케이스 호출
+        │ └── rest
+        │     └── KakaoMessageRestAdapter.kt     → [@RestController] 메시지 발송을 요청받는 HTTP API 진입점
+        ├── output                          → [출력 어댑터] 유스케이스에서 정의한 출력 포트를 구현
+        │ └── producer
+        │     └── KafkaMessageProducerAdapter.kt → [@Component] KafkaMessageProducerPort 구현, Kafka 토픽으로 메시지 발행
+        └── input                           → [입력 어댑터] 외부에서 이벤트를 받아 처리
+            └── consumer
+                └── KafkaMessageConsumer.kt        → [@KafkaListener] Kafka 메시지를 수신하여 실제 카카오톡 메시지를 전송하거나 실패 시 SMS로 대체 발송 수행
+```

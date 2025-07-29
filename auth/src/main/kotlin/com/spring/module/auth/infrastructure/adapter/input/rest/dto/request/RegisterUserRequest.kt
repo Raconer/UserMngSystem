@@ -15,8 +15,8 @@ data class RegisterUserRequest (
     val rrn: String? = null,
     @field:NotBlank(message = "전화번호는 필수입니다.")
     @field:Pattern(
-        regexp = "^\\d{10,11}$",
-        message = "전화번호는 숫자 10~11자리여야 합니다."
+        regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$",
+        message = "전화번호는 형식에 맞게 입력해야 합니다. 예) 010-1234-5678"
     )
     val phoneNumber: String? = null,
     @field:NotBlank(message = "주소는 필수입니다.")

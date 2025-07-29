@@ -17,6 +17,7 @@ interface UserRepositoryPort {
     fun findByUsername(username: String): User?
     fun findSignInfoByUsername(username: String): SignDTO?
     fun searchUsers(pageable:Pageable):Page<User>
+    fun findByAgeGroup(ageGroup: Int): List<User>
 
     // DELETE
     fun deleteById(id: Long)

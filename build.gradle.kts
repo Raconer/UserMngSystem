@@ -41,6 +41,8 @@ subprojects {
         add("implementation", "org.springframework.boot:spring-boot-starter-actuator")
         // Swagger UI 제공 (API 문서 자동 생성 및 웹 UI 제공)
         add("implementation", "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
+        // Bean Validation(JSR-380) 사용 (예: @Valid, @NotNull 등)
+        add("implementation", "org.springframework.boot:spring-boot-starter-validation")
 
         add("testImplementation", "org.springframework.boot:spring-boot-starter-test")
         add("testImplementation", "org.jetbrains.kotlin:kotlin-test-junit5")
