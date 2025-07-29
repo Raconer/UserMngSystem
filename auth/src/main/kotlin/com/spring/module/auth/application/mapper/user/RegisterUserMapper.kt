@@ -1,7 +1,6 @@
 package com.spring.module.auth.application.mapper.user
 
 import com.spring.module.auth.domain.model.User
-import com.spring.module.auth.domain.model.enum.GenderEnum
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.RegisterUserRequest
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.response.UserInfoResponse
 import org.mapstruct.*
@@ -39,13 +38,7 @@ abstract class RegisterUserMapper {
             else -> throw IllegalArgumentException("올바르지 않은 주민등록번호입니다.")
         }
         val birthYear = (yearPrefix + rrn.substring(0, 2)).toInt()
-        val gender = when (rrn[6]) {
-            '1', '3' -> GenderEnum.MALE
-            '2', '4' -> GenderEnum.FEMALE
-            else -> throw IllegalArgumentException("올바르지 않은 성별 코드입니다.")
-        }
 
         user.birthYear = birthYear
-        user.gender = gender
     }
 }

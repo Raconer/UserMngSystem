@@ -13,7 +13,7 @@ springdoc:
     groups-order: ASC
 spring:
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: kafka:9092
     consumer:
       group-id: kafka-group-id
       auto-offset-reset: earliest
