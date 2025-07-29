@@ -1,6 +1,7 @@
 package com.spring.module.auth.domain.model
 
 import com.spring.module.auth.domain.common.BasicEntity
+import com.spring.module.auth.domain.model.enum.GenderEnum
 import jakarta.persistence.*
 import org.hibernate.annotations.DynamicUpdate
 
@@ -12,15 +13,20 @@ data class User(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id:Long? = null,
     @Column(nullable = false, unique = true)
-    val username:String,
+    var username:String,
     @Column(nullable = false)
     var password:String,
     @Column(nullable = false)
-    val name:String,
+    var name:String,
     @Column(nullable = false, unique = true)
-    val rrn:String,
+    var rrn:String,
     @Column(nullable = false)
-    val phoneNumber:String,
+    var birthYear: Int? = null,
     @Column(nullable = false)
-    val address:String
+    @Enumerated(EnumType.STRING)
+    var gender: GenderEnum? = null,
+    @Column(nullable = false)
+    var phoneNumber:String,
+    @Column(nullable = false)
+    var address:String
 ) : BasicEntity()

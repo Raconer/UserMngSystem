@@ -2,8 +2,10 @@ package com.spring.module.auth.infrastructure.adapter.input.rest
 
 import com.spring.module.auth.application.port.`in`.RegisterUserUseCase
 import com.spring.module.auth.application.port.`in`.SearchUserUseCase
+import com.spring.module.auth.application.port.`in`.SendKakaoMessageUseCase
 import com.spring.module.auth.infrastructure.adapter.input.rest.common.CommonRes
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.SearchUserRequest
+import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.SendKakaoMessageRequest
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.UpdateUserRequest
 import com.spring.module.auth.infrastructure.adapter.input.rest.exception.MissingUserIdException
 import org.springframework.http.HttpStatus
@@ -14,13 +16,21 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/admin")
 class AdminRestAdapter(
     private val searchUserUseCase: SearchUserUseCase,
-    private val registerUserUseCase: RegisterUserUseCase
+    private val registerUserUseCase: RegisterUserUseCase,
+    private val sendKakaoMessageUseCase: SendKakaoMessageUseCase,
 ) {
 
     // 회원 조회
     @GetMapping
     fun searchUsers( searchUserRequest: SearchUserRequest): ResponseEntity<out Any> {
         return CommonRes.Def(this.searchUserUseCase.execute(searchUserRequest))
+    }
+
+    // 카카오톡
+    @PostMapping("/kakao")
+    fun sendMessageByAgeGroup(@RequestBody sendKakaoMessageRequest: SendKakaoMessageRequest): ResponseEntity<Any> {
+        sendKakaoMessageUseCase.sendKakaoToAgeGroup(sendKakaoMessageRequest)
+        return ResponseEntity.status(HttpStatus.OK).build()
     }
 
     // 수정

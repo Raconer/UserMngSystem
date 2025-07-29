@@ -37,6 +37,11 @@ class UserRepositoryAdapter(
         return this.userJpaRepository.searchUsers(pageable)
     }
 
+    // 연령대별 사용자 조회
+    override fun findByAgeGroup(ageGroup: Int): List<User> {
+        return this.userJpaRepository.findByAgeGroup(ageGroup)
+    }
+
     // 사용자 정보 삭제
     override fun deleteById(id: Long) {
         this.userJpaRepository.deleteById(id)

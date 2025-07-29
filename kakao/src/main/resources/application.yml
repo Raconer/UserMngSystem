@@ -1,0 +1,27 @@
+server:
+  port: 8081
+  shutdown: graceful
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    path: /swagger/index.html
+    supported-submit-methods: [get, post, put, delete]
+    tags-sorter: alpha
+    operations-sorter: method
+    groups-order: ASC
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092  # Kafka 브로커 주소 (복수 개일 경우 쉼표로 구분, 예: host1:9092,host2:9092)
+    consumer:
+      group-id: kafka-group-id  # 같은 Group ID를 가진 컨슈머들은 메시지를 나누어 소비함 (Load Balancing 구조)
+      auto-offset-reset: earliest  # 소비할 오프셋이 없을 때(최초 실행 등) 어디서부터 읽을지 설정
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer  # 메시지 키를 문자열로 직렬화
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer  # 메시지 값을 문자열로 직렬화
+    listener:
+      ack-mode: manual_immediate  # 메시지를 수신한 후 언제 offset을 커밋할지 제어 (ACK 전략)
