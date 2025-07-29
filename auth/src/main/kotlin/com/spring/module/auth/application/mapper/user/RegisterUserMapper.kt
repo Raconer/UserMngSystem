@@ -4,11 +4,7 @@ import com.spring.module.auth.domain.model.User
 import com.spring.module.auth.domain.model.enum.GenderEnum
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.RegisterUserRequest
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.response.UserInfoResponse
-import org.mapstruct.AfterMapping
-import org.mapstruct.Mapper
-import org.mapstruct.Mapping
-import org.mapstruct.MappingTarget
-import org.mapstruct.Mappings
+import org.mapstruct.*
 import org.springframework.security.crypto.password.PasswordEncoder
 
 @Mapper(componentModel = "spring")
