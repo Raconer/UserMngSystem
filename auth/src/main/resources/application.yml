@@ -18,7 +18,7 @@ springdoc:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/user_mng?useSSL=false&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+    url: jdbc:mysql://mysql:3306/user_mng?useSSL=false&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
     username: root
     password: root
     hikari:
@@ -59,6 +59,6 @@ common:
 # SEND Kakao
 external:
   kakao:
-    url: http://localhost:8081/kakaotalk-messages
+    url: http://kakao:8081/kakaotalk-messages
     username: autoever
     password: 1234

@@ -1,7 +1,6 @@
 package com.spring.module.auth.domain.model
 
 import com.spring.module.auth.domain.common.BasicEntity
-import com.spring.module.auth.domain.model.enum.GenderEnum
 import jakarta.persistence.*
 import org.hibernate.annotations.DynamicUpdate
 
@@ -22,9 +21,6 @@ data class User(
     var rrn:String,
     @Column(nullable = false)
     var birthYear: Int? = null,
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    var gender: GenderEnum? = null,
     @Column(nullable = false)
     var phoneNumber:String,
     @Column(nullable = false)

@@ -8,7 +8,6 @@ plugins {
 
 allprojects {
     group = "com.user.manage"
-    version = "0.0.1-SNAPSHOT"
 
     repositories {
         mavenCentral() // 필수: Kotlin stdlib 등 다운로드
