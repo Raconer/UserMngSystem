@@ -2,11 +2,10 @@ package com.spring.module.auth.infrastructure.adapter.input.rest
 
 import com.spring.module.auth.application.port.`in`.RegisterUserUseCase
 import com.spring.module.auth.application.port.`in`.SearchUserUseCase
-import com.spring.module.auth.application.port.out.UserRepositoryPort
 import com.spring.module.auth.infrastructure.adapter.input.rest.common.CommonRes
-import com.spring.module.auth.infrastructure.adapter.input.rest.exception.MissingUserIdException
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.SearchUserRequest
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.UpdateUserRequest
+import com.spring.module.auth.infrastructure.adapter.input.rest.exception.MissingUserIdException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

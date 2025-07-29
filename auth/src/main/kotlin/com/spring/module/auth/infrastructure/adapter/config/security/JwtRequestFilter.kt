@@ -1,7 +1,6 @@
 package com.spring.module.auth.infrastructure.adapter.config.security
 
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.sign.SignDTO
-import com.spring.module.auth.infrastructure.adapter.input.rest.exception.CustomAuthenticationException
 import com.spring.module.auth.infrastructure.adapter.input.rest.exception.UserNotFoundException
 import com.spring.module.auth.infrastructure.rest.constant.GlobalConstants
 import com.spring.module.auth.infrastructure.rest.constant.ResponseMessages
@@ -10,7 +9,6 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.web.ErrorResponse
 import org.springframework.web.filter.OncePerRequestFilter
 
 class JwtRequestFilter(
