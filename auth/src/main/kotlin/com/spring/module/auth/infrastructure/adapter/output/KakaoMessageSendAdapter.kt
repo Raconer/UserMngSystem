@@ -30,13 +30,8 @@ class KakaoMessageSendAdapter(
 
         val request = HttpEntity(message, headers)
 
-        // ✅ 바디 및 헤더 확인 로그
-        println("보낼 메시지: $message")
-        println("헤더: $headers")
-
         try {
             val response = restTemplate.postForEntity(kakaoUrl, request, String::class.java)
-            println("응답 코드: ${response.statusCode}")
         } catch (ex: Exception) {
             println("실패: ${ex.message}")
             throw ex
