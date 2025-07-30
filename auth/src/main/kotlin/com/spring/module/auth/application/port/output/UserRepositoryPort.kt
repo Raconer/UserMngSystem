@@ -1,4 +1,4 @@
-package com.spring.module.auth.application.port.out
+package com.spring.module.auth.application.port.output
 
 import com.spring.module.auth.domain.model.User
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.sign.SignDTO

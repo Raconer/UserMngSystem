@@ -1,7 +1,7 @@
 package com.spring.module.auth.application.service
 
-import com.spring.module.auth.application.port.`in`.SignUseCase
-import com.spring.module.auth.application.port.out.UserRepositoryPort
+import com.spring.module.auth.application.port.input.SignUseCase
+import com.spring.module.auth.application.port.output.UserRepositoryPort
 import com.spring.module.auth.infrastructure.adapter.config.security.JwtUtil
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.SignInRequest
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.response.SignInResponse

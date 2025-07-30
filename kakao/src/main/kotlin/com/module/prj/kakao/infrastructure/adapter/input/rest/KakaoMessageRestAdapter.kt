@@ -1,6 +1,6 @@
 package com.module.prj.kakao.infrastructure.adapter.input.rest
 
-import com.module.prj.kakao.application.port.`in`.SendKakaoMessageUseCase
+import com.module.prj.kakao.application.port.input.SendKakaoMessageUseCase
 import com.module.prj.kakao.infrastructure.adapter.input.rest.dto.request.KakaoSendRequest
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController
 class KakaoMessageRestAdapter(
     private val sendKakaoMessageUseCase: SendKakaoMessageUseCase
 ) {
-
     @PostMapping
     fun sendKakaoMessage(@Valid @RequestBody kakaoSendRequest: KakaoSendRequest):ResponseEntity<Void> {
-        sendKakaoMessageUseCase.send(kakaoSendRequest)
+        println("[Send Kakao MSG API] ${kakaoSendRequest}")
+        this.sendKakaoMessageUseCase.send(kakaoSendRequest)
         return ResponseEntity.ok().build()
     }
 }

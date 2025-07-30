@@ -1,8 +1,8 @@
 package com.spring.module.auth.application.service
 
 import com.spring.module.auth.application.mapper.user.RegisterUserMapper
-import com.spring.module.auth.application.port.`in`.RegisterUserUseCase
-import com.spring.module.auth.application.port.out.UserRepositoryPort
+import com.spring.module.auth.application.port.input.RegisterUserUseCase
+import com.spring.module.auth.application.port.output.UserRepositoryPort
 import com.spring.module.auth.domain.model.User
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.RegisterUserRequest
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.UpdateUserRequest

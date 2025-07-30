@@ -8,4 +8,4 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 8080
-ENTRYPOINT ["sh", "-c", "until nc -z mysql 3306; do echo '⏳ waiting for mysql...'; sleep 2; done; java -jar app.jar"]
+ENTRYPOINT ["sh", "-c", "until nc -z mysql 3306; do echo '⏳ waiting for mysql...'; sleep 2; done; java -Dspring.profiles.active=docker -jar app.jar"]

@@ -1,26 +1,29 @@
 package com.spring.module.auth.application.service
 
-import com.spring.module.auth.application.port.`in`.SendKakaoMessageUseCase
-import com.spring.module.auth.application.port.out.KakaoMessageSendPort
-import com.spring.module.auth.application.port.out.UserRepositoryPort
+import com.spring.module.auth.application.port.input.SendKakaoMessageUseCase
+import com.spring.module.auth.application.port.output.UserRepositoryPort
 import com.spring.module.auth.domain.model.KakaoMessage
+import com.spring.module.auth.domain.model.event.KakaoMessageEvent
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.SendKakaoMessageRequest
 import com.spring.module.auth.infrastructure.rest.constant.GlobalConstants
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 
 @Service
 class SendKakaoMessageService(
     private val userRepositoryPort: UserRepositoryPort,
-    private val kakaoMessageSendPort: KakaoMessageSendPort
+    private val eventPublisher: ApplicationEventPublisher
 ): SendKakaoMessageUseCase {
     override fun sendKakaoToAgeGroup( request: SendKakaoMessageRequest) {
-        this.userRepositoryPort.findByAgeGroup(request.ageGroup!!).forEach {
-            val message = KakaoMessage(
+        val kakaoMessageList = this.userRepositoryPort.findByAgeGroup(request.ageGroup!!).map {
+            KakaoMessage(
                 phone = it.phoneNumber,
                 message = String.format(GlobalConstants.SEND_KAKAO_MESSAGE, it.name)
             )
-
-            this.kakaoMessageSendPort.send(message)
         }
+
+        val kakaoMessageEvent = KakaoMessageEvent(kakaoMessageList)
+
+        this.eventPublisher.publishEvent(kakaoMessageEvent)
     }
 }
