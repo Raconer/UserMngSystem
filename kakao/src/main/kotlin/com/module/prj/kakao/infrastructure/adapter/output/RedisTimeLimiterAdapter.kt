@@ -4,6 +4,9 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.module.prj.kakao.application.port.output.KakaoSendMessagePort
 import com.module.prj.kakao.application.port.output.RedisTimeLimiterPort
 import com.module.prj.kakao.domain.model.KakaoMessage
+import kotlinx.coroutines.*
+import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
@@ -14,41 +17,71 @@ import java.time.format.DateTimeFormatter
 @Component
 class RedisTimeLimiterAdapter(
     private val redisTemplate: StringRedisTemplate,
-    private val kakaoSendMessagePort: KakaoSendMessagePort
+    private val kakaoSendMessagePort: KakaoSendMessagePort,
+    @Value("\${kakao.send.token}")
+    private val kakaoSendTokenList: List<String>,
+    @Value("\${kakao.send.count}") private val kakaoSendCnt: Int,
+    @Qualifier("limitedIoDispatcher")
+    private val limitedDispatcher: CoroutineDispatcher
 ) : RedisTimeLimiterPort {
+
+
 
     private val objectMapper = jacksonObjectMapper()
 
-
     // 카카오톡 메시지 Redis 저장
     override fun enqueueKakaoMessageToRedisQueue(message: KakaoMessage) {
-        val json = objectMapper.writeValueAsString(message)
-        redisTemplate.opsForList().leftPush("kakao:queue", json)
+        val json = this.objectMapper.writeValueAsString(message)
+        try{
+            this.redisTemplate.opsForList().leftPush("kakao:queue", json)
+        } catch (e: Exception) {
+            println("Redis push failed: ${e.message}")
+        }
     }
 
     @Scheduled(cron = "0 * * * * *") // 매 분 0초에 실행
-    override fun sendMessages() {
+    override fun sendMessages() = runBlocking {
         val currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
         println("[$currentTime] Kakao Send Message Start =============================================")
         val key = "kakao:queue"
         val ops = redisTemplate.opsForList()
 
         val size = ops.size(key) ?: 0
+        // 메시지가 하나라도 있을때
         if (0L < size ){
-            val count = if (size >= 100) 100 else size.toInt()
-
-            val messages = ops.range(key, -count.toLong(), -1) ?: return
+            val tokenSize =  kakaoSendTokenList.size
+            val sendKakaoMessageSize = kakaoSendCnt * tokenSize
+            // 토큰 * 100 개의 메시지를 가져온다.
+            val count = minOf(sendKakaoMessageSize, size.toInt())
+            println("[$tokenSize] Sending Kakao Message Cnt : $count")
+            val messages = ops.range(key, -count.toLong(), -1) ?: return@runBlocking
             redisTemplate.opsForList().trim(key, 0, -(count + 1).toLong()) // 삭제
 
-            messages.reversed().forEach { json ->
-                val kakaoSendMessage = objectMapper.readValue(json, KakaoMessage::class.java)
-                this.kakaoSendMessagePort.send(kakaoSendMessage)
+            val messageList = divideListEqually(messages, tokenSize)
+
+            supervisorScope {
+                kakaoSendTokenList.zip(messageList).forEach { (token, msgChunk) ->
+
+
+                    launch(limitedDispatcher){
+                        println("[${msgChunk.size}]Launching for token: $token on thread: ${Thread.currentThread().name}")
+                        msgChunk.forEach { json ->
+                            val kakaoSendMessage = objectMapper.readValue(json, KakaoMessage::class.java)
+                            kakaoSendMessagePort.send(kakaoSendMessage)
+                        }
+                    }
+                }
             }
         }
-
-
         println("[$currentTime] Kakao Send Message END!! =============================================")
     }
 
-
+    private fun divideListEqually(list: List<String>, n: Int): List<List<String>> {
+        val size = list.size
+        return List(n) { i ->
+            val start = (i * size) / n
+            val end = ((i + 1) * size) / n
+            list.subList(start, end)
+        }
+    }
 }

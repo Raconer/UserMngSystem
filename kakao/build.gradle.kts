@@ -7,4 +7,7 @@ dependencies {
 
 	// REDIS
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.7.3")
 }

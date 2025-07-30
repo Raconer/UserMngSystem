@@ -16,7 +16,7 @@ class KakaoMessageRestAdapter(
 ) {
     @PostMapping
     fun sendKakaoMessage(@Valid @RequestBody kakaoSendRequest: KakaoSendRequest):ResponseEntity<Void> {
-        println("sendKakaoMessage")
+        println("[Send Kakao MSG API] ${kakaoSendRequest}")
         this.sendKakaoMessageUseCase.send(kakaoSendRequest)
         return ResponseEntity.ok().build()
     }

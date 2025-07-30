@@ -1,21 +1,5 @@
-server:
-  port: 8081
-  shutdown: graceful
-
-springdoc:
-  api-docs:
-    enabled: true
-  swagger-ui:
-    path: /swagger/index.html
-    supported-submit-methods: [get, post, put, delete]
-    tags-sorter: alpha
-    operations-sorter: method
-    groups-order: ASC
 spring:
   data:
     redis:
       host: localhost
       port: 6379
-kakao:
-  send:
-    count: 100
