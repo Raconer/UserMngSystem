@@ -29,7 +29,7 @@ class AdminRestAdapter(
     // 카카오톡
     @PostMapping("/kakao")
     fun sendMessageByAgeGroup(@RequestBody sendKakaoMessageRequest: SendKakaoMessageRequest): ResponseEntity<Any> {
-        sendKakaoMessageUseCase.sendKakaoToAgeGroup(sendKakaoMessageRequest)
+        this.sendKakaoMessageUseCase.sendKakaoToAgeGroup(sendKakaoMessageRequest)
         return ResponseEntity.status(HttpStatus.OK).build()
     }
 
