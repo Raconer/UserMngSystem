@@ -8,7 +8,7 @@
 ./gradlew :auth:bootJar :kakao:bootJar
 
 # 꼭 --build 필요
-docker-compose up --build  
+docker-compose up --build -d
 ```
 
 ### Auth 

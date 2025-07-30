@@ -1,8 +1,8 @@
 package com.spring.module.auth.application.service
 
-import com.spring.module.auth.application.port.`in`.SendKakaoMessageUseCase
-import com.spring.module.auth.application.port.out.KakaoMessageSendPort
-import com.spring.module.auth.application.port.out.UserRepositoryPort
+import com.spring.module.auth.application.port.input.SendKakaoMessageUseCase
+import com.spring.module.auth.application.port.output.KakaoMessageSendPort
+import com.spring.module.auth.application.port.output.UserRepositoryPort
 import com.spring.module.auth.domain.model.KakaoMessage
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.SendKakaoMessageRequest
 import com.spring.module.auth.infrastructure.rest.constant.GlobalConstants

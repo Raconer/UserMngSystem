@@ -1,6 +1,6 @@
 package com.spring.module.auth.infrastructure.adapter.output
 
-import com.spring.module.auth.application.port.out.KakaoMessageSendPort
+import com.spring.module.auth.application.port.output.KakaoMessageSendPort
 import com.spring.module.auth.domain.model.KakaoMessage
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpEntity
@@ -20,7 +20,7 @@ class KakaoMessageSendAdapter(
     @Value("\${external.kakao.password}")
     private val password: String
 ) : KakaoMessageSendPort {
-    override fun send(message: KakaoMessage) {
+    override fun send(kakaoMessage: KakaoMessage) {
         val encoded = Base64.getEncoder().encodeToString("$username:$password".toByteArray())
 
         val headers = HttpHeaders().apply {
@@ -28,10 +28,10 @@ class KakaoMessageSendAdapter(
             set("Authorization", "Basic $encoded")
         }
 
-        val request = HttpEntity(message, headers)
+        val request = HttpEntity(kakaoMessage, headers)
 
         try {
-            val response = restTemplate.postForEntity(kakaoUrl, request, String::class.java)
+            restTemplate.postForEntity(kakaoUrl, request, String::class.java)
         } catch (ex: Exception) {
             println("실패: ${ex.message}")
             throw ex
