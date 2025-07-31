@@ -6,6 +6,7 @@ object ResponseMessages {
     const val MISSING_USER_ID_ERROR =  "사용자 ID는 필수입니다."
     const val USER_NOT_FOUND = "사용자를 찾을수없습니다."
     const val PASSWORD_NOT_MATCH = "비밀번호를 잘못입력 하셨습니다."
+    const val DUPLICATE_USER = "중복된 사용자 이름입니다."
 
     // JWT Exception
     const val TOKEN_IS_NULL = "토큰이 Null 입니다."

@@ -3,17 +3,17 @@ services:
     image: mysql:8.0.42
     container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: user_mng
+      MYSQL_ROOT_PASSWORD: root   # root 계정 비밀번호
+      MYSQL_DATABASE: user_mng    # 초기 생성할 DB 이름
     ports:
       - "3306:3306"
     networks:
       - backend
     volumes:
-      - ./insert_users_final.sql:/docker-entrypoint-initdb.d/insert_users_final.sql
+      - ./insert_users_final.sql:/docker-entrypoint-initdb.d/insert_users_final.sql   # 초기 데이터 삽입용 SQL 파일 마운트 (컨테이너 시작 시 자동 실행됨)
     tmpfs:
       - /var/lib/mysql
-    healthcheck:
+    healthcheck:                # MySQL 정상 작동 여부 확인용 설정
       test: ["CMD", "mysqladmin", "ping", "-h", "mysql", "-uroot", "-proot"]
       interval: 5s
       timeout: 3s
@@ -39,7 +39,7 @@ services:
     container_name: auth
     depends_on:
       mysql:
-        condition: service_healthy
+        condition: service_healthy  # MySQL이 정상 동작할 때만 시작
     ports:
       - "8080:8080"
     networks:
@@ -64,4 +64,4 @@ services:
       - backend
 
 networks:
-  backend:
+  backend:  # 서비스 간 통신을 위한 가상 네트워크 정의

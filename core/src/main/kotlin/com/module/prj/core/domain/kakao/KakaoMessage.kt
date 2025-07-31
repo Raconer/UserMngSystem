@@ -1,6 +1,7 @@
 package com.module.prj.core.domain.kakao
 
+import com.module.prj.core.domain.message.Message
+
 data class KakaoMessage(
-    val phone: String = "",
-    val message: String = ""
-)
+    override val phone: String,
+    override val message: String) : Message

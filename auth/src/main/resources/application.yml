@@ -5,8 +5,6 @@ server:
     context-path: /api
 
 springdoc:
-  api-docs:
-    enabled: true
   swagger-ui:
     path: /swagger/index.html
     supported-submit-methods: [get, post, put, delete]

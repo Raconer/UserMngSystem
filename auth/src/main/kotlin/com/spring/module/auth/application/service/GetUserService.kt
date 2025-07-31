@@ -20,11 +20,19 @@ class GetUserService(
     private val registerUserMapper: RegisterUserMapper
 ) : SearchUserUseCase {
 
+
+    /**
+     * username으로 사용자 단건 조회
+     */
+    @Transactional(readOnly = true)
     override fun getByUsername(username: String): UserInfoResponse {
         val user = this.userRepositoryPort.findByUsername(username)?: throw UsernameNotFoundException(ResponseMessages.USER_NOT_FOUND)
         return this.registerUserMapper.toInfo(user)
     }
 
+    /**
+     * 사용자 목록 조회 (페이징 포함)
+     */
     @Transactional(readOnly = true)
     override fun execute(searchUserRequest: SearchUserRequest): PageResponse<User> {
         val pageable : Pageable = PageRequest.of(searchUserRequest.page - 1, searchUserRequest.size)
