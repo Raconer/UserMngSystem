@@ -1,11 +1,11 @@
 package com.spring.module.auth.application.service
 
+import com.module.prj.core.domain.kakao.KakaoMessage
 import com.spring.module.auth.application.port.input.SendKakaoMessageUseCase
 import com.spring.module.auth.application.port.output.UserRepositoryPort
-import com.spring.module.auth.domain.model.KakaoMessage
 import com.spring.module.auth.domain.model.event.KakaoMessageEvent
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.SendKakaoMessageRequest
-import com.spring.module.auth.infrastructure.rest.constant.GlobalConstants
+import com.module.prj.core.util.GlobalConstants
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 

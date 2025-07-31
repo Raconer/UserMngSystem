@@ -1,9 +1,9 @@
 package com.module.prj.kakao.infrastructure.adapter.output
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.module.prj.core.domain.kakao.KakaoMessage
 import com.module.prj.kakao.application.port.output.KakaoSendMessagePort
 import com.module.prj.kakao.application.port.output.RedisTimeLimiterPort
-import com.module.prj.kakao.domain.model.KakaoMessage
 import kotlinx.coroutines.*
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value

@@ -4,10 +4,10 @@ import com.spring.module.auth.application.mapper.user.RegisterUserMapper
 import com.spring.module.auth.application.port.input.SearchUserUseCase
 import com.spring.module.auth.application.port.output.UserRepositoryPort
 import com.spring.module.auth.domain.model.User
-import com.spring.module.auth.infrastructure.adapter.input.rest.common.PageResponse
+import com.module.prj.core.domain.common.PageResponse
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.SearchUserRequest
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.response.UserInfoResponse
-import com.spring.module.auth.infrastructure.rest.constant.ResponseMessages
+import com.module.prj.core.util.ResponseMessages
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.security.core.userdetails.UsernameNotFoundException

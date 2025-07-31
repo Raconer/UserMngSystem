@@ -1,7 +1,7 @@
 package com.spring.module.auth.infrastructure.adapter.config.security
 
 import com.spring.module.auth.infrastructure.adapter.input.rest.exception.CustomAuthenticationException
-import com.spring.module.auth.infrastructure.rest.constant.ResponseMessages
+import com.module.prj.core.util.ResponseMessages
 import io.jsonwebtoken.*
 import io.jsonwebtoken.security.Keys
 import org.springframework.beans.factory.annotation.Value

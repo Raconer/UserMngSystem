@@ -1,4 +1,4 @@
-package com.spring.module.auth.infrastructure.rest.constant
+package com.module.prj.core.util
 
 object ResponseMessages {
     // Exception Message

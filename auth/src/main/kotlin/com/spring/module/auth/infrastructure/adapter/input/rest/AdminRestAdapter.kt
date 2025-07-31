@@ -3,7 +3,7 @@ package com.spring.module.auth.infrastructure.adapter.input.rest
 import com.spring.module.auth.application.port.input.RegisterUserUseCase
 import com.spring.module.auth.application.port.input.SearchUserUseCase
 import com.spring.module.auth.application.port.input.SendKakaoMessageUseCase
-import com.spring.module.auth.infrastructure.adapter.input.rest.common.CommonRes
+import com.module.prj.core.domain.common.response.CommonRes
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.SearchUserRequest
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.SendKakaoMessageRequest
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.UpdateUserRequest

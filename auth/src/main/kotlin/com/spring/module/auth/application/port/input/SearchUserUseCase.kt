@@ -1,7 +1,7 @@
 package com.spring.module.auth.application.port.input
 
 import com.spring.module.auth.domain.model.User
-import com.spring.module.auth.infrastructure.adapter.input.rest.common.PageResponse
+import com.module.prj.core.domain.common.PageResponse
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.SearchUserRequest
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.response.UserInfoResponse
 

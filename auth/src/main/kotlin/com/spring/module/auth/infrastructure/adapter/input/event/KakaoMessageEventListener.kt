@@ -1,8 +1,6 @@
 package com.spring.module.auth.infrastructure.adapter.input.event
 
-import com.spring.module.auth.domain.model.KakaoMessage
 import com.spring.module.auth.domain.model.event.KakaoMessageEvent
-import com.spring.module.auth.infrastructure.rest.constant.GlobalConstants
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.event.EventListener
 import org.springframework.http.HttpEntity

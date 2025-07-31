@@ -1,4 +1,4 @@
-package com.spring.module.auth.infrastructure.adapter.input.rest.dto
+package com.module.prj.core.domain.common.response
 
 import java.time.LocalDate
 

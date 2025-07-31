@@ -1,4 +1,4 @@
-package com.spring.module.auth.infrastructure.adapter.input.rest.common
+package com.module.prj.core.domain.common
 
 data class PageResponse<T>(
     val page: Int,

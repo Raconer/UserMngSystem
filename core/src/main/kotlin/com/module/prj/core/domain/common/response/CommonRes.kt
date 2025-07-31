@@ -1,6 +1,5 @@
-package com.spring.module.auth.infrastructure.adapter.input.rest.common
+package com.module.prj.core.domain.common.response
 
-import com.spring.module.auth.infrastructure.adapter.input.rest.dto.ResponseMsg
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 

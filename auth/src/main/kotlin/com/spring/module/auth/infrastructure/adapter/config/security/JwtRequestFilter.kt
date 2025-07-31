@@ -2,8 +2,8 @@ package com.spring.module.auth.infrastructure.adapter.config.security
 
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.sign.SignDTO
 import com.spring.module.auth.infrastructure.adapter.input.rest.exception.UserNotFoundException
-import com.spring.module.auth.infrastructure.rest.constant.GlobalConstants
-import com.spring.module.auth.infrastructure.rest.constant.ResponseMessages
+import com.module.prj.core.util.GlobalConstants
+import com.module.prj.core.util.ResponseMessages
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -26,7 +26,7 @@ class JwtRequestFilter(
             throw UserNotFoundException(ResponseMessages.TOKEN_IS_NULL)
         }
 
-        if (bearerToken != null && bearerToken.isNotEmpty() && bearerToken.startsWith(GlobalConstants.TOKEN_PREFIX)) {
+        if (bearerToken.isNotEmpty() && bearerToken.startsWith(GlobalConstants.TOKEN_PREFIX)) {
             val token: String = bearerToken.substring(GlobalConstants.SUB_LEN)
 
             val claims = this.jwtUtil.getData(token)
