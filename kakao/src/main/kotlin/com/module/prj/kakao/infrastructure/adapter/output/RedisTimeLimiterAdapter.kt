@@ -21,19 +21,17 @@ class RedisTimeLimiterAdapter(
     @Value("\${kakao.send.token}")
     private val kakaoSendTokenList: List<String>,
     @Value("\${kakao.send.count}") private val kakaoSendCnt: Int,
-    @Qualifier("limitedIoDispatcher")
-    private val limitedDispatcher: CoroutineDispatcher
+    @Value("\${kakao.send.redis-key}") private val kakaoSendKey: String,
+    @Qualifier("limitedIoDispatcher") private val limitedDispatcher: CoroutineDispatcher
 ) : RedisTimeLimiterPort {
-
-
 
     private val objectMapper = jacksonObjectMapper()
 
     // 카카오톡 메시지 Redis 저장
-    override fun enqueueKakaoMessageToRedisQueue(message: KakaoMessage) {
-        val json = this.objectMapper.writeValueAsString(message)
+    override fun enqueueKakaoMessageToRedisQueue(kakaoMessage: KakaoMessage) {
+        val json = this.objectMapper.writeValueAsString(kakaoMessage)
         try{
-            this.redisTemplate.opsForList().leftPush("kakao:queue", json)
+            this.redisTemplate.opsForList().leftPush(kakaoSendKey, json)
         } catch (e: Exception) {
             println("Redis push failed: ${e.message}")
         }
@@ -43,10 +41,9 @@ class RedisTimeLimiterAdapter(
     override fun sendMessages() = runBlocking {
         val currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
         println("[$currentTime] Kakao Send Message Start =============================================")
-        val key = "kakao:queue"
         val ops = redisTemplate.opsForList()
 
-        val size = ops.size(key) ?: 0
+        val size = ops.size(kakaoSendKey) ?: 0
         // 메시지가 하나라도 있을때
         if (0L < size ){
             val tokenSize =  kakaoSendTokenList.size
@@ -54,8 +51,8 @@ class RedisTimeLimiterAdapter(
             // 토큰 * 100 개의 메시지를 가져온다.
             val count = minOf(sendKakaoMessageSize, size.toInt())
             println("[$tokenSize] Sending Kakao Message Cnt : $count")
-            val messages = ops.range(key, -count.toLong(), -1) ?: return@runBlocking
-            redisTemplate.opsForList().trim(key, 0, -(count + 1).toLong()) // 삭제
+            val messages = ops.range(kakaoSendKey, -count.toLong(), -1) ?: return@runBlocking
+            redisTemplate.opsForList().trim(kakaoSendKey, 0, -(count + 1).toLong()) // 삭제
 
             val messageList = divideListEqually(messages, tokenSize)
 

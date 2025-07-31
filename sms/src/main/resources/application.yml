@@ -11,10 +11,10 @@ springdoc:
     tags-sorter: alpha
     operations-sorter: method
     groups-order: ASC
-kakao:
+sms:
   send:
-    count: 100
-    token: kakao-token-1,kakao-token-2,kakao-token-3,kakao-token-4
+    count: 500
+    redis-key: sms:queue
 
 coroutine:
   thread:

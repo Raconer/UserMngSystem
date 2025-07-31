@@ -1,5 +1,7 @@
 package com.module.prj.sms.infrastructure.adapter.input.rest
 
+import com.module.prj.sms.application.port.input.SendSmsMessageUseCase
+import com.module.prj.sms.domain.model.SmsMessage
 import com.module.prj.sms.infrastructure.adapter.input.rest.dto.request.SmsSendBodyRequest
 import com.module.prj.sms.infrastructure.adapter.input.rest.dto.request.SmsSendParamRequest
 import jakarta.validation.Valid
@@ -9,15 +11,22 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/sms")
-class SmsMessageRestAdapter {
+class SmsMessageRestAdapter(
+    private val sendSmsMessageUseCase: SendSmsMessageUseCase
+) {
 
     @PostMapping
     fun sendSmsMessage(
        @Valid @ModelAttribute smsSendParamRequest: SmsSendParamRequest,
        @Valid @RequestBody smsSendBodyRequest: SmsSendBodyRequest
     ): ResponseEntity<Void> {
-        println("[Send Sms MSG API Param - phone] ${smsSendParamRequest}")
-        println("[Send Sms MSG API Body ] ${smsSendBodyRequest}")
+        println("[Send Kakao MSG API Param] ${smsSendParamRequest}")
+        println("[Send Kakao MSG API Body] ${smsSendBodyRequest}")
+        val smsMessage = SmsMessage(
+            smsSendParamRequest.phone!!,
+            smsSendBodyRequest.message
+        )
+        this.sendSmsMessageUseCase.send(smsMessage)
         return ResponseEntity.ok().build()
     }
 }

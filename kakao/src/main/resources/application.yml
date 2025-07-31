@@ -15,6 +15,7 @@ kakao:
   send:
     count: 100
     token: kakao-token-1,kakao-token-2,kakao-token-3,kakao-token-4
+    redis-key: kakao:queue
 
 coroutine:
   thread:
