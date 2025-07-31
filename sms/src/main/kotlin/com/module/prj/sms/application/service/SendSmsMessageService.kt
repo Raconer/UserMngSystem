@@ -2,7 +2,6 @@ package com.module.prj.sms.application.service
 
 import com.module.prj.sms.application.port.input.SendSmsMessageUseCase
 import com.module.prj.sms.application.port.output.RedisTimeLimiterPort
-import com.module.prj.sms.domain.model.SmsMessage
 import org.springframework.stereotype.Service
 
 @Service

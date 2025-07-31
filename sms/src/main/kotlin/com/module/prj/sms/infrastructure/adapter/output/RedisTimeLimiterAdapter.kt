@@ -2,9 +2,9 @@ package com.module.prj.sms.infrastructure.adapter.output
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.module.prj.core.domain.kakao.KakaoMessage
+import com.module.prj.core.domain.sms.SmsMessage
 import com.module.prj.sms.application.port.output.RedisTimeLimiterPort
 import com.module.prj.sms.application.port.output.SmsSendMessagePort
-import com.module.prj.sms.domain.model.SmsMessage
 import kotlinx.coroutines.*
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value

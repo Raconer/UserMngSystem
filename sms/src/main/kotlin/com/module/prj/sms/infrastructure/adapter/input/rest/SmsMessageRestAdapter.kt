@@ -1,7 +1,7 @@
 package com.module.prj.sms.infrastructure.adapter.input.rest
 
+import com.module.prj.core.domain.sms.SmsMessage
 import com.module.prj.sms.application.port.input.SendSmsMessageUseCase
-import com.module.prj.sms.domain.model.SmsMessage
 import com.module.prj.sms.infrastructure.adapter.input.rest.dto.request.SmsSendBodyRequest
 import com.module.prj.sms.infrastructure.adapter.input.rest.dto.request.SmsSendParamRequest
 import jakarta.validation.Valid
