@@ -20,8 +20,6 @@ class SmsMessageRestAdapter(
        @Valid @ModelAttribute smsSendParamRequest: SmsSendParamRequest,
        @Valid @RequestBody smsSendBodyRequest: SmsSendBodyRequest
     ): ResponseEntity<Void> {
-        println("[Send Kakao MSG API Param] ${smsSendParamRequest}")
-        println("[Send Kakao MSG API Body] ${smsSendBodyRequest}")
         val smsMessage = SmsMessage(
             smsSendParamRequest.phone!!,
             smsSendBodyRequest.message
