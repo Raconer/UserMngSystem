@@ -1,8 +1,7 @@
 package com.spring.module.auth.infrastructure.adapter.input.event
 
-import com.spring.module.auth.domain.model.KakaoMessage
+import com.module.prj.core.common.GlobalConstants
 import com.spring.module.auth.domain.model.event.KakaoMessageEvent
-import com.spring.module.auth.infrastructure.rest.constant.GlobalConstants
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.event.EventListener
 import org.springframework.http.HttpEntity
@@ -31,10 +30,10 @@ class KakaoMessageEventListener(
 
         val headers = HttpHeaders().apply {
             contentType = MediaType.APPLICATION_JSON
-            set("Authorization", "Basic $encoded")
+            set(GlobalConstants.AUTHORIZATION_HEADER, "Basic $encoded")
         }
 
-        event.kakaoMessageList.forEach { kakaoMessage ->
+        event.kakaoMessageList.stream().parallel().forEach { kakaoMessage ->
 
             val request = HttpEntity(kakaoMessage, headers)
 

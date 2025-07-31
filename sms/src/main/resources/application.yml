@@ -1,0 +1,21 @@
+server:
+  port: 8082
+  shutdown: graceful
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    path: /swagger/index.html
+    supported-submit-methods: [get, post, put, delete]
+    tags-sorter: alpha
+    operations-sorter: method
+    groups-order: ASC
+sms:
+  send:
+    count: 500
+    redis-key: sms:queue
+
+coroutine:
+  thread:
+    cnt: 4

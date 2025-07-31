@@ -3,3 +3,8 @@ spring:
     redis:
       host: redis
       port: 6379
+
+# SEND Sms
+external:
+  sms:
+    url: http://sms:8082/sms

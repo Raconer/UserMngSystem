@@ -5,7 +5,7 @@
 
 ```shell
 # 터미널 root 위치에서 아래 명령어 실행
-./gradlew :auth:bootJar :kakao:bootJar
+./gradlew :auth:bootJar :kakao:bootJar :sms:bootJar
 
 # 꼭 --build 필요
 docker-compose up --build -d

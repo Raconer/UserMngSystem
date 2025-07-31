@@ -1,8 +1,8 @@
 package com.module.prj.kakao.application.service
 
+import com.module.prj.core.domain.kakao.KakaoMessage
 import com.module.prj.kakao.application.port.input.SendKakaoMessageUseCase
 import com.module.prj.kakao.application.port.output.RedisTimeLimiterPort
-import com.module.prj.kakao.domain.model.KakaoMessage
 import com.module.prj.kakao.infrastructure.adapter.input.rest.dto.request.KakaoSendRequest
 import org.springframework.stereotype.Service
 

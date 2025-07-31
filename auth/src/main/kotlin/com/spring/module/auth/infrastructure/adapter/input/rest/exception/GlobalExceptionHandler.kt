@@ -1,8 +1,8 @@
 package com.spring.module.auth.infrastructure.adapter.input.rest.exception
 
-import com.spring.module.auth.infrastructure.adapter.input.rest.common.CommonRes
-import com.spring.module.auth.infrastructure.adapter.input.rest.dto.exception.FieldError
-import com.spring.module.auth.infrastructure.rest.constant.ResponseMessages
+import com.module.prj.core.domain.common.response.CommonRes
+import com.module.prj.core.domain.exception.FieldError
+import com.module.prj.core.common.ResponseMessages
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
