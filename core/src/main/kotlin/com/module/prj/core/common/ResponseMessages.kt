@@ -1,4 +1,4 @@
-package com.module.prj.core.util
+package com.module.prj.core.common
 
 object ResponseMessages {
     // Exception Message

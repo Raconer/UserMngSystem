@@ -2,8 +2,8 @@ package com.spring.module.auth.infrastructure.adapter.config.security
 
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.sign.SignDTO
 import com.spring.module.auth.infrastructure.adapter.input.rest.exception.UserNotFoundException
-import com.module.prj.core.util.GlobalConstants
-import com.module.prj.core.util.ResponseMessages
+import com.module.prj.core.common.GlobalConstants
+import com.module.prj.core.common.ResponseMessages
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -22,7 +22,7 @@ class JwtRequestFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        val bearerToken =  requireNotNull(request.getHeader("Authorization")) {
+        val bearerToken =  requireNotNull(request.getHeader(GlobalConstants.AUTHORIZATION_HEADER)) {
             throw UserNotFoundException(ResponseMessages.TOKEN_IS_NULL)
         }
 

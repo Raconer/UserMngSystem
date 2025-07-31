@@ -1,4 +1,4 @@
-package com.module.prj.core.util
+package com.module.prj.core.common
 
 object GlobalConstants {
     // JWT
@@ -7,4 +7,7 @@ object GlobalConstants {
 
     // MESSAGE
     const val SEND_KAKAO_MESSAGE = "%s님, 안녕하세요. 현대 오토에버입니다."
+
+    // AUTH
+    const val AUTHORIZATION_HEADER = "Authorization"
 }

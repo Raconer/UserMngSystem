@@ -1,6 +1,6 @@
 package com.spring.module.auth.infrastructure.adapter.config.security
 
-import com.module.prj.core.util.ResponseMessages
+import com.module.prj.core.common.ResponseMessages
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.HttpStatus

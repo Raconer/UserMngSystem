@@ -20,3 +20,9 @@ kakao:
 coroutine:
   thread:
     cnt: 4
+
+# SEND Kakao
+external:
+  sms:
+    username: autoever
+    password: 5678

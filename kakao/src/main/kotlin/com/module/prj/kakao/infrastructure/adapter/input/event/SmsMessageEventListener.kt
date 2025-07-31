@@ -1,7 +1,7 @@
-package com.spring.module.auth.infrastructure.adapter.input.event
+package com.module.prj.kakao.infrastructure.adapter.input.event
 
 import com.module.prj.core.common.GlobalConstants
-import com.spring.module.auth.domain.model.event.KakaoMessageEvent
+import com.module.prj.kakao.domain.model.event.SmsMessageEvent
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.event.EventListener
 import org.springframework.http.HttpEntity
@@ -13,19 +13,18 @@ import org.springframework.web.client.RestTemplate
 import java.util.*
 
 @Component
-class KakaoMessageEventListener(
+class SmsMessageEventListener (
     private val restTemplate: RestTemplate,
-    @Value("\${external.kakao.url}")
+    @Value("\${external.sms.url}")
     private val kakaoUrl: String,
-    @Value("\${external.kakao.username}")
+    @Value("\${external.sms.username}")
     private val username: String,
-    @Value("\${external.kakao.password}")
+    @Value("\${external.sms.password}")
     private val password: String
-)  {
-
+){
     @Async
     @EventListener
-    fun send(event: KakaoMessageEvent) {
+    fun send(event: SmsMessageEvent) {
         val encoded = Base64.getEncoder().encodeToString("$username:$password".toByteArray())
 
         val headers = HttpHeaders().apply {
@@ -33,9 +32,9 @@ class KakaoMessageEventListener(
             set(GlobalConstants.AUTHORIZATION_HEADER, "Basic $encoded")
         }
 
-        event.kakaoMessageList.stream().parallel().forEach { kakaoMessage ->
+        event.smsMessageList.stream().parallel().forEach { smsMessage ->
 
-            val request = HttpEntity(kakaoMessage, headers)
+            val request = HttpEntity(smsMessage, headers)
 
             try {
                 restTemplate.postForEntity(kakaoUrl, request, String::class.java)

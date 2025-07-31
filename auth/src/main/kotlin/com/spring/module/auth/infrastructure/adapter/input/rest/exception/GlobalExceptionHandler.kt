@@ -2,7 +2,7 @@ package com.spring.module.auth.infrastructure.adapter.input.rest.exception
 
 import com.module.prj.core.domain.common.response.CommonRes
 import com.module.prj.core.domain.exception.FieldError
-import com.module.prj.core.util.ResponseMessages
+import com.module.prj.core.common.ResponseMessages
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException

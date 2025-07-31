@@ -7,7 +7,7 @@ import com.spring.module.auth.domain.model.User
 import com.module.prj.core.domain.common.PageResponse
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.SearchUserRequest
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.response.UserInfoResponse
-import com.module.prj.core.util.ResponseMessages
+import com.module.prj.core.common.ResponseMessages
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.security.core.userdetails.UsernameNotFoundException
