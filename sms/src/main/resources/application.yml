@@ -1,0 +1,21 @@
+server:
+  port: 8082
+  shutdown: graceful
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    path: /swagger/index.html
+    supported-submit-methods: [get, post, put, delete]
+    tags-sorter: alpha
+    operations-sorter: method
+    groups-order: ASC
+kakao:
+  send:
+    count: 100
+    token: kakao-token-1,kakao-token-2,kakao-token-3,kakao-token-4
+
+coroutine:
+  thread:
+    cnt: 4
