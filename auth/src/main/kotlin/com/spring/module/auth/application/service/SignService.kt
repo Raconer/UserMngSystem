@@ -19,16 +19,25 @@ class SignService(
     private val jwtUtil: JwtUtil
 ) : SignUseCase {
 
+    /**
+     * 로그인 처리 로직
+     * - 사용자 존재 여부 확인
+     * - 비밀번호 검증
+     * - JWT 토큰 발급
+     */
     @Transactional(readOnly = true)
     override fun signIn(signInRequest: SignInRequest): SignInResponse {
         val username = signInRequest.username!!
+
+        // 사용자 조회
         val signDto = this.userRepositoryPort.findSignInfoByUsername(username)?: throw UsernameNotFoundException(
             ResponseMessages.USER_NOT_FOUND)
 
-        if(this.passwordEncoder.matches(signDto.password, username)){
+        if(!this.passwordEncoder.matches(signInRequest.password, signDto.password)){
             throw BadCredentialsException(ResponseMessages.PASSWORD_NOT_MATCH) // 비밀번호가 틀렸습니다로 작성하면 사용자 정보 노출 위험이 있으므로 사용자
         }
 
+        // JWT 토큰 발급
         return SignInResponse(username, this.jwtUtil.create(username))
     }
 

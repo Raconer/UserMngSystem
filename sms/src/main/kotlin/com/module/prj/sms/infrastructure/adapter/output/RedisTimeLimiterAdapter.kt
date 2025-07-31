@@ -6,6 +6,7 @@ import com.module.prj.core.domain.sms.SmsMessage
 import com.module.prj.sms.application.port.output.RedisTimeLimiterPort
 import com.module.prj.sms.application.port.output.SmsSendMessagePort
 import kotlinx.coroutines.*
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.redis.core.StringRedisTemplate
@@ -24,22 +25,34 @@ class RedisTimeLimiterAdapter(
     @Qualifier("limitedIoDispatcher") private val limitedDispatcher: CoroutineDispatcher
 ) : RedisTimeLimiterPort {
 
+    private val log = LoggerFactory.getLogger(RedisTimeLimiterAdapter::class.java)
+
+
     private val objectMapper = jacksonObjectMapper()
 
-    // 카카오톡 메시지 Redis 저장
+    /**
+     * SMS 메시지를 Redis 리스트에 JSON 문자열로 저장 (좌측 push)
+     * @param smsMessage 저장할 SMS 메시지 도메인 객체
+     */
     override fun enqueueKakaoMessageToRedisQueue(smsMessage: SmsMessage) {
         val json = this.objectMapper.writeValueAsString(smsMessage)
         try{
             this.redisTemplate.opsForList().leftPush(smsSendKey, json)
         } catch (e: Exception) {
-            println("Redis push failed: ${e.message}")
+            log.error("Redis push failed: ${e.message}")
         }
     }
 
+    /**
+     * 매 분 0초마다 실행하여 Redis 큐에서 메시지를 꺼내 전송
+     * - 제한된 개수(smsSendCnt)만큼만 처리
+     * - 처리 후 Redis 큐에서 해당 메시지 삭제
+     * - 코루틴으로 비동기 처리하여 IO 효율성 극대화
+     */
     @Scheduled(cron = "0 * * * * *") // 매 분 0초에 실행
     override fun sendMessages() = runBlocking {
         val currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-        println("[$currentTime] SMS Send Message Start =============================================")
+        log.info("[$currentTime] SMS Send Message Start =============================================")
         val ops = redisTemplate.opsForList()
 
         val size = ops.size(smsSendKey) ?: 0
@@ -47,13 +60,13 @@ class RedisTimeLimiterAdapter(
         if (0L < size ){
             // 500 개의 메시지를 가져온다.
             val count = minOf(smsSendCnt, size.toInt())
-            println("Sending Sms Message Cnt : $count")
+            log.info("Sending Sms Message Cnt : $count")
             val messages = ops.range(smsSendKey, -count.toLong(), -1) ?: return@runBlocking
             redisTemplate.opsForList().trim(smsSendKey, 0, -(count + 1).toLong()) // 삭제
 
             supervisorScope {
                     launch(limitedDispatcher){
-                        println("thread: ${Thread.currentThread().name}")
+                        log.info("thread: ${Thread.currentThread().name}")
                         messages.forEach { json ->
                             val smsMessage = objectMapper.readValue(json, SmsMessage::class.java)
                             smsSendMessagePort.send(smsMessage)
@@ -61,7 +74,7 @@ class RedisTimeLimiterAdapter(
                     }
             }
         }
-        println("[$currentTime] SMS Send Message END!! =============================================")
+        log.info("[$currentTime] SMS Send Message END!! =============================================")
     }
 
 

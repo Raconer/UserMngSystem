@@ -11,6 +11,10 @@ import org.springframework.context.annotation.Configuration
 class CoroutineConfig (
     @Value("\${coroutine.thread.cnt}") private val coroutineThreadCnt: Int,
 ){
+    /**
+     * 제한된 병렬성의 IO 디스패처를 생성하여 Bean 등록
+     * @return CoroutineDispatcher - 제한된 병렬성 IO 디스패처
+     */
     @OptIn(ExperimentalCoroutinesApi::class)
     @Bean
     fun limitedIoDispatcher(): CoroutineDispatcher {

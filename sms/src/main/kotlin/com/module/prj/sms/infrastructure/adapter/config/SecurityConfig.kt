@@ -21,6 +21,15 @@ class SecurityConfig {
     @Bean
     fun bCryptPasswordEncoder(): BCryptPasswordEncoder = BCryptPasswordEncoder()
 
+
+    /**
+     * Spring Security HTTP 보안 필터 체인 설정
+     * - CSRF 비활성화
+     * - POST /sms 요청만 인증 필요
+     * - 나머지 요청은 모두 거부
+     * - HTTP Basic 인증 사용
+     * - 세션을 생성하지 않는 무상태(stateless) 정책 적용
+     */
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
@@ -38,6 +47,10 @@ class SecurityConfig {
         return http.build()
     }
 
+
+    /**
+     * 인메모리 사용자 인증 서비스 등록
+     */
     @Bean
     fun userDetailsService(): UserDetailsService {
         val admin: UserDetails = User

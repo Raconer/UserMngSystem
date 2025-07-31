@@ -17,13 +17,14 @@ class JwtRequestFilter(
     private val jwtUtil: JwtUtil,
 ) : OncePerRequestFilter() {
 
-    private val EXCLUDE_URL = arrayListOf("/api/user", "/api/sign/in")
-
+    // 인증 예외 경로 설정 (URI + 허용 메서드)
     private val EXCLUDE_MAP: Map<String, Set<HttpMethod>> = mapOf(
         "/api/user" to setOf(HttpMethod.POST),
         "/api/sign/in" to setOf(HttpMethod.POST) // 여러 메서드 허용 가능
     )
-
+    /**
+     * 실제 필터링 로직
+     */
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
@@ -46,6 +47,10 @@ class JwtRequestFilter(
         filterChain.doFilter(request, response)
     }
 
+    /**
+     * 필터 제외 여부 판단
+     * 특정 URI + 메서드 조합이면 필터를 건너뜀
+     */
     override fun shouldNotFilter(request: HttpServletRequest): Boolean {
         val uri = request.requestURI
         val method = try {

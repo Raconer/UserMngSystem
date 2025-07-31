@@ -9,11 +9,17 @@ import com.module.prj.core.common.GlobalConstants
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 
+/**
+ * 연령대별 사용자에게 카카오톡 메시지를 전송하는 서비스
+ */
 @Service
 class SendKakaoMessageService(
     private val userRepositoryPort: UserRepositoryPort,
     private val eventPublisher: ApplicationEventPublisher
 ): SendKakaoMessageUseCase {
+    /**
+     * 연령대 기준으로 사용자 목록을 조회하고 카카오 메시지 이벤트 발행
+     */
     override fun sendKakaoToAgeGroup( request: SendKakaoMessageRequest) {
         val kakaoMessageList = this.userRepositoryPort.findByAgeGroup(request.ageGroup!!).map {
             KakaoMessage(

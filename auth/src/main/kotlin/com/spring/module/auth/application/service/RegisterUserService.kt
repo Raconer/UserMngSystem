@@ -18,11 +18,18 @@ class RegisterUserService(
     private val passwordEncoder: PasswordEncoder
 ) : RegisterUserUseCase {
 
+    /**
+     * 사용자 등록
+     */
     @Transactional
     override fun register(registerUserRequest: RegisterUserRequest): User {
         val user = this.registerUserMapper.toEntity(registerUserRequest, passwordEncoder)
         return this.userRepositoryPort.save(user)
     }
+
+    /**
+     * 사용자 정보 수정 (비밀번호, 주소)
+     */
     @Transactional
     override fun update(id:Long, updateUserRequest: UpdateUserRequest): User {
         val user = this.userRepositoryPort.findById(id)?: throw UserNotFoundException()
@@ -34,6 +41,10 @@ class RegisterUserService(
 
         return this.userRepositoryPort.save(updateUser)
     }
+
+    /**
+     * 사용자 삭제
+     */
     @Transactional
     override fun deleteById(id: Long) {
         this.userRepositoryPort.deleteById(id)

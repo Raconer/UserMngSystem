@@ -13,12 +13,19 @@ import java.util.*
 @Component
 class JwtUtil {
 
+    // JWT 서명에 사용할 비밀키 (application.yml에서 주입)
     @Value("\${common.jwt.secret_key}")
     private val secretKey: String? = null
 
+    // 토큰 만료 시간(ms 단위, application.yml에서 주입)
     @Value("\${common.jwt.expire_time}")
     private val expired: Long = 0
 
+    /**
+     * JWT 토큰 생성
+     * @param username 사용자 ID
+     * @return 생성된 JWT 문자열
+     */
     fun create(username: String): String {
         val header: MutableMap<String, Any> = HashMap()
         val payloads: MutableMap<String, Any> = HashMap()
@@ -35,11 +42,21 @@ class JwtUtil {
             .compact()
     }
 
+    /**
+     * JWT 토큰 파싱하여 Claims 추출
+     * @param token JWT 문자열
+     * @return Claims 객체
+     */
     fun getData(token: String?): Claims {
         isValidate(token)
         return Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parseClaimsJws(token).body
     }
 
+    /**
+     * JWT 토큰 유효성 검사
+     * @param token JWT 문자열
+     * @return 유효하면 true, 아니면 예외 발생
+     */
     fun isValidate(token: String?): Boolean? {
         if (token == null) throw CustomAuthenticationException(ResponseMessages.TOKEN_IS_NULL)
         return try {
@@ -59,7 +76,9 @@ class JwtUtil {
             throw CustomAuthenticationException(ResponseMessages.EMPTY_CLAIMS, ex)
         }
     }
-
+    /**
+     * HMAC 서명용 SecretKey 반환
+     */
     private fun getSigningKey() = Keys.hmacShaKeyFor(secretKey!!.toByteArray())
 
 }

@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 @RestControllerAdvice
 class GlobalExceptionHandler {
 
+
+    /**
+     * @param ex 유효성 검사 실패 예외
+     * @return 필드별 에러 메시지를 담아 400 BAD_REQUEST 반환
+     */
     @ExceptionHandler(MethodArgumentNotValidException::class)
     fun handleValidationEx(ex: MethodArgumentNotValidException ): ResponseEntity<Any> {
 
@@ -21,6 +26,11 @@ class GlobalExceptionHandler {
         return CommonRes.Except(HttpStatus.BAD_REQUEST, errors)
     }
 
+
+    /**
+     * @param ex 모든 예외 처리
+     * @return 500 INTERNAL_SERVER_ERROR 응답 반환
+     */
     @ExceptionHandler(Exception::class)
     fun handleAll(ex: Exception): ResponseEntity<Any> {
         val message = ex.message ?: ResponseMessages.UNKNOWN_ERROR
