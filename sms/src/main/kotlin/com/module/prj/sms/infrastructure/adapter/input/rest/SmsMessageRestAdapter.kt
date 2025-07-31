@@ -48,12 +48,12 @@ class SmsMessageRestAdapter(
     fun sendSmsMessage(
        @Valid @ModelAttribute smsSendParamRequest: SmsSendParamRequest,
        @Valid @RequestBody smsSendBodyRequest: SmsSendBodyRequest
-    ): ResponseEntity<Void> {
+    ): ResponseEntity<Map<String, String>> {
         val smsMessage = SmsMessage(
             smsSendParamRequest.phone!!,
             smsSendBodyRequest.message
         )
         this.sendSmsMessageUseCase.send(smsMessage)
-        return ResponseEntity.ok().build()
+        return ResponseEntity.ok(mapOf("result" to "OK"))
     }
 }

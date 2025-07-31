@@ -14,8 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
-import io.swagger.v3.oas.annotations.responses.ApiResponses
-import io.swagger.v3.oas.annotations.parameters.RequestBody
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -47,12 +46,12 @@ class AdminRestAdapter(
 
     // 카카오톡
     @Operation(
-        summary = "카카오 메시지 발송",
-        description = "연령대별 사용자에게 카카오 메시지를 발송합니다.",
-        requestBody = RequestBody(
+        summary = "연령대별 카카오 메시지 발송",
+        description = "연령대 정보를 받아 해당 연령대 사용자에게 카카오 메시지를 발송합니다.",
+        requestBody = io.swagger.v3.oas.annotations.parameters.RequestBody(
             description = "연령대 정보",
             required = true,
-            content = [Content(schema = Schema(implementation = SendKakaoMessageRequest::class))]
+            content = [io.swagger.v3.oas.annotations.media.Content(schema = io.swagger.v3.oas.annotations.media.Schema(implementation = SendKakaoMessageRequest::class))]
         ),
         responses = [
             ApiResponse(responseCode = "200", description = "전송 성공"),
@@ -61,7 +60,7 @@ class AdminRestAdapter(
         ]
     )
     @PostMapping("/kakao")
-    fun sendMessageByAgeGroup(@RequestBody sendKakaoMessageRequest: SendKakaoMessageRequest): ResponseEntity<Any> {
+    fun sendMessageByAgeGroup(@Valid @RequestBody sendKakaoMessageRequest: SendKakaoMessageRequest): ResponseEntity<Any> {
         this.sendKakaoMessageUseCase.sendKakaoToAgeGroup(sendKakaoMessageRequest)
         return ResponseEntity.status(HttpStatus.OK).build()
     }
@@ -70,7 +69,7 @@ class AdminRestAdapter(
     @Operation(
         summary = "회원 정보 수정",
         description = "ID로 회원 정보를 수정합니다.",
-        requestBody = RequestBody(
+        requestBody = io.swagger.v3.oas.annotations.parameters.RequestBody(
             description = "수정할 회원 정보",
             required = true,
             content = [Content(schema = Schema(implementation = UpdateUserRequest::class))]

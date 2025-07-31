@@ -47,7 +47,9 @@ class SecurityConfig (
             // 경로별 접근 권한 설정
             .authorizeHttpRequests {
                 it
-                    .requestMatchers("/user").permitAll()
+                    .requestMatchers(
+                        "/swagger/**","/swagger-ui/**", "/v3/api-docs/**",
+                        "/user").permitAll()
                     .requestMatchers(HttpMethod.POST,"/sign/in").permitAll()
                     .requestMatchers("/admin/**").authenticated()
                     .anyRequest().denyAll()

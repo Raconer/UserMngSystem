@@ -6,11 +6,11 @@ import jakarta.validation.constraints.*
 @Schema(description = "회원 가입 요청")
 data class RegisterUserRequest (
 
-    @field:Schema(description = "아이디", example = "testuser")
+    @field:Schema(description = "아이디", example = "user")
     @field:NotBlank(message = "아이디는 필수입니다.")
     val username: String? = null,
 
-    @field:Schema(description = "비밀번호 (최소 8자)", example = "Abcd1234!")
+    @field:Schema(description = "비밀번호 (최소 8자)", example = "1q2w3e4r")
     @field:NotBlank(message = "비밀번호는 필수입니다.")
     @field:Size(min=8)
     val password: String? = null,

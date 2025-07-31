@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 
 @Schema(description = "사용자 정보 응답")
 data class UserInfoResponse(
-    @Schema(description = "사용자 아이디", example = "testuser")
+    @Schema(description = "사용자 아이디", example = "user")
     val username:String,
     @Schema(description = "비밀번호 (암호화됨)", example = "$2a$10$...")
     var password:String,

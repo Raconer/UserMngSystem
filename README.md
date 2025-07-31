@@ -2,7 +2,7 @@
 > Spring Boot 기반의 사용자 관리 시스템입니다.  
 > Hexagonal Architecture 및 멀티 모듈 구조를 사용하여 인증, 메시지 전송(Kakao/SMS) 기능을 분리하였습니다.
 ## Info
-### 실행 방법
+### 🚨 실행 방법 (중요) 🚨
 ```shell
 # 터미널 root 위치에서 아래 명령어 실행
 ./gradlew :auth:bootJar :kakao:bootJar :sms:bootJar
@@ -16,10 +16,10 @@ docker-compose up --build -d
 - kakao 서버: http://localhost:8081
 - sms 서버: http://localhost:8082
 
-### 📘 API 문서
-- Auth 서버: http://localhost:8080/swagger-ui.html
-- Kakao 서버: http://localhost:8081/swagger-ui.html
-- SMS 서버: http://localhost:8082/swagger-ui.html
+### 📘 API 문서 (SWAGGER)
+- Auth 서버:   http://localhost:8080/api/swagger/index.html
+- Kakao 서버:  http://localhost:8081/swagger/index.html
+- SMS 서버:    http://localhost:8082/swagger/index.html
 
 ## ROOT
 

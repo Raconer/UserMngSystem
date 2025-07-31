@@ -40,7 +40,7 @@ subprojects {
         // Spring Boot Actuator 사용 (헬스 체크, 메트릭 등 운영 도구)
         add("implementation", "org.springframework.boot:spring-boot-starter-actuator")
         // Swagger UI 제공 (API 문서 자동 생성 및 웹 UI 제공)
-        add("implementation", "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
+        add("implementation", "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
         // Bean Validation(JSR-380) 사용 (예: @Valid, @NotNull 등)
         add("implementation", "org.springframework.boot:spring-boot-starter-validation")
         // 테스트 의존성

@@ -38,7 +38,7 @@ class SecurityConfig {
         http
             .csrf { it.disable() }
             .authorizeHttpRequests {
-                it
+                it  .requestMatchers("/swagger/**","/swagger-ui/**", "/v3/api-docs/**").permitAll()
                     .requestMatchers("/kakaotalk-messages").authenticated()
                     .anyRequest().denyAll()
             }

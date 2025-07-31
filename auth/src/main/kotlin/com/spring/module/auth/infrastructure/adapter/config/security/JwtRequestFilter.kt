@@ -20,8 +20,16 @@ class JwtRequestFilter(
     // 인증 예외 경로 설정 (URI + 허용 메서드)
     private val EXCLUDE_MAP: Map<String, Set<HttpMethod>> = mapOf(
         "/api/user" to setOf(HttpMethod.POST),
-        "/api/sign/in" to setOf(HttpMethod.POST) // 여러 메서드 허용 가능
+        "/api/sign/in" to setOf(HttpMethod.POST)
     )
+
+    private val SWAGGER_EXCLUDE_PATHS = listOf(
+        "/api/swagger",
+        "/api/swagger/swagger-ui",
+        "/api/v3/api-docs"
+    )
+
+
     /**
      * 실제 필터링 로직
      */
@@ -58,6 +66,9 @@ class JwtRequestFilter(
         } catch (e: IllegalArgumentException) {
             return false
         }
+
+        if(SWAGGER_EXCLUDE_PATHS.any { path -> uri.startsWith(path) }) { return true}
+
 
         return EXCLUDE_MAP[uri]?.contains(method) == true
     }

@@ -36,6 +36,7 @@ class SecurityConfig {
             .csrf { it.disable() }
             .authorizeHttpRequests {
                 it
+                    .requestMatchers("/swagger/**","/swagger-ui/**", "/v3/api-docs/**").permitAll()
                     .requestMatchers(HttpMethod.POST, "/sms").authenticated()
                     .anyRequest().denyAll()
             }
