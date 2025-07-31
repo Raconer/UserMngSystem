@@ -11,15 +11,14 @@ import java.time.Instant
 class KakaoSendMessageAdapter : KakaoSendMessagePort {
 
     override fun send(kakaoMessage: KakaoMessage) {
-        try {
-            val lastDigit = kakaoMessage.phone.takeLast(1).toIntOrNull()
-            if (lastDigit != null && lastDigit % 2 == 0) {
-                throw RuntimeException("임의로 발생시킨 예외 (짝수 번호)")
-            }
 
-            println("✅ Kakao 메시지 전송 성공 : $kakaoMessage")
-        } catch (e: Exception) {
-            println("❌ 전송 실패 → SMS 전송")
+        /* 임의 메시지 전송 오류 발생 -> 테스트시 사용
+        val lastDigit = kakaoMessage.phone.takeLast(1).toIntOrNull()
+        if (lastDigit != null && lastDigit % 2 == 0) {
+            throw RuntimeException("임의로 발생시킨 예외 (짝수 번호)")
         }
+        */
+
+        println("✅ Kakao 메시지 전송 성공 : $kakaoMessage")
     }
 }

@@ -16,7 +16,7 @@ import java.util.*
 class SmsMessageEventListener (
     private val restTemplate: RestTemplate,
     @Value("\${external.sms.url}")
-    private val kakaoUrl: String,
+    private val smsUrl: String,
     @Value("\${external.sms.username}")
     private val username: String,
     @Value("\${external.sms.password}")
@@ -25,6 +25,7 @@ class SmsMessageEventListener (
     @Async
     @EventListener
     fun send(event: SmsMessageEvent) {
+        println("📨 SMS 대체 전송: ${event.smsMessageList.size}건")
         val encoded = Base64.getEncoder().encodeToString("$username:$password".toByteArray())
 
         val headers = HttpHeaders().apply {
@@ -33,11 +34,13 @@ class SmsMessageEventListener (
         }
 
         event.smsMessageList.stream().parallel().forEach { smsMessage ->
+            val urlWithParam = "$smsUrl?phone=${smsMessage.phone}"
 
-            val request = HttpEntity(smsMessage, headers)
+            val body = mapOf("message" to smsMessage.message)
+            val request = HttpEntity(body, headers)
 
             try {
-                restTemplate.postForEntity(kakaoUrl, request, String::class.java)
+                restTemplate.postForEntity(urlWithParam, request, String::class.java)
             } catch (ex: Exception) {
                 println("실패: ${ex.message}")
                 throw ex

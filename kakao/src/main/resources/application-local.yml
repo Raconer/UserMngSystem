@@ -7,4 +7,4 @@ spring:
 # SEND Kakao
 external:
   sms:
-    url: http://localhost:8082/kakaotalk-messages
+    url: http://localhost:8082/sms

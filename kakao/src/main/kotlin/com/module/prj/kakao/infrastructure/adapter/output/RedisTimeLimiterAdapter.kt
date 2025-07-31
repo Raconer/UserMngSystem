@@ -73,6 +73,7 @@ class RedisTimeLimiterAdapter(
                             try {
                                 kakaoSendMessagePort.send(kakaoSendMessage)
                             } catch (e: Exception) {
+                                println("\t → ${kakaoSendMessage.phone} - ${kakaoSendMessage.message}")
                                 localFails.add(
                                     SmsMessage(
                                         phone = kakaoSendMessage.phone,
@@ -87,7 +88,7 @@ class RedisTimeLimiterAdapter(
                 }.awaitAll() // ✅ 모든 async 결과 수집
 
                 results.forEach { failMessageList.addAll(it) } // ✅ 각 로컬 실패 메시지를 병합
-                eventPublisher.publishEvent(failMessageList)
+                eventPublisher.publishEvent(SmsMessageEvent(failMessageList))
             }
         }
         println("[$currentTime] Kakao Send Message END!! =============================================")
