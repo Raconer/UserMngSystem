@@ -15,24 +15,25 @@ allprojects {
 }
 
 subprojects {
+    // 공통 플러그인 적용
     apply(plugin = "java")
     apply(plugin = "org.springframework.boot")
     apply(plugin = "io.spring.dependency-management")
     apply(plugin = "org.jetbrains.kotlin.jvm")
     apply(plugin = "org.jetbrains.kotlin.plugin.spring")
-
+    // Java 17 버전으로 통합 설정
     extensions.configure<JavaPluginExtension> {
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(17))
         }
     }
-
+    // JUnit5 사용 설정
     tasks.withType<Test> {
         useJUnitPlatform()
     }
 
     dependencies {
-        // Kotlin 리플렉션 기능 사용 (예: 클래스 메타 정보 접근)
+        // Kotlin 리플렉션 (예: 클래스 메타 정보 접근, DI, AOP에 사용)
         add("implementation", "org.jetbrains.kotlin:kotlin-reflect")
         // Spring Security 기능 사용 (인증/인가 처리)
         add("implementation", "org.springframework.boot:spring-boot-starter-security")
@@ -42,7 +43,7 @@ subprojects {
         add("implementation", "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
         // Bean Validation(JSR-380) 사용 (예: @Valid, @NotNull 등)
         add("implementation", "org.springframework.boot:spring-boot-starter-validation")
-
+        // 테스트 의존성
         add("testImplementation", "org.springframework.boot:spring-boot-starter-test")
         add("testImplementation", "org.jetbrains.kotlin:kotlin-test-junit5")
         add("testRuntimeOnly", "org.junit.platform:junit-platform-launcher")
