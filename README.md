@@ -3,6 +3,11 @@
 > Hexagonal Architecture 및 멀티 모듈 구조를 사용하여 인증, 메시지 전송(Kakao/SMS) 기능을 분리하였습니다.
 ## Info
 ### 🚨 실행 방법 (중요) 🚨
+
+* 중요! - 카카오 메시지 에러 임의 발생 방법
+  * "@TestCase.1" 검색 그리고 주석제거 
+  * Path : com.module.prj.kakao.infrastructure.adapter.output.KakaoSendMessageAdapter.kt
+
 ```shell
 # 터미널 root 위치에서 아래 명령어 실행
 ./gradlew :auth:bootJar :kakao:bootJar :sms:bootJar
@@ -10,6 +15,9 @@
 # 꼭 --build 필요
 docker-compose up --build -d
 ```
+
+### 메시지 전송 아키텍처
+![메시지 전송 아키텍처](./architecture.png)
 
 ### 📡 서버 포트 안내
 - auth 서버: http://localhost:8080
