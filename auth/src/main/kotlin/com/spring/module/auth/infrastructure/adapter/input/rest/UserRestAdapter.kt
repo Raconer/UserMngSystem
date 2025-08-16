@@ -1,20 +1,20 @@
 package com.spring.module.auth.infrastructure.adapter.input.rest
 
+import com.module.prj.core.domain.common.response.CommonRes
 import com.spring.module.auth.application.port.input.RegisterUserUseCase
 import com.spring.module.auth.application.port.input.SearchUserUseCase
-import com.module.prj.core.domain.common.response.CommonRes
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.RegisterUserRequest
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.sign.SignDTO
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.Content
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
-import io.swagger.v3.oas.annotations.Operation
-import io.swagger.v3.oas.annotations.media.Content
-import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.parameters.RequestBody as SwaggerRequestBody
-import io.swagger.v3.oas.annotations.responses.ApiResponse
-import io.swagger.v3.oas.annotations.tags.Tag
 
 @Tag(name = "회원 API", description = "회원가입 및 내 정보 조회 API")
 @RestController

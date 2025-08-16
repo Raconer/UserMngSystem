@@ -1,13 +1,12 @@
 package com.spring.module.auth.infrastructure.adapter.input.rest
 
-import com.spring.module.auth.application.port.input.SignUseCase
 import com.module.prj.core.domain.common.response.CommonRes
+import com.spring.module.auth.application.port.input.SignUseCase
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.request.SignInRequest
 import com.spring.module.auth.infrastructure.adapter.input.rest.dto.response.SignInResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
-import io.swagger.v3.oas.annotations.parameters.RequestBody as SwaggerRequestBody
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import io.swagger.v3.oas.annotations.parameters.RequestBody as SwaggerRequestBody
 
 @Tag(name = "인증 API", description = "로그인 관련 API")
 @RestController

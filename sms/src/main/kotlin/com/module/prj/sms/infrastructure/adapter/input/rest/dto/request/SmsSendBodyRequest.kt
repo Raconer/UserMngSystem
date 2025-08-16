@@ -1,8 +1,7 @@
 package com.module.prj.sms.infrastructure.adapter.input.rest.dto.request
 
-import jakarta.validation.constraints.NotBlank
 import io.swagger.v3.oas.annotations.media.Schema
-
+import jakarta.validation.constraints.NotBlank
 
 
 @Schema(description = "SMS 전송 요청 본문")

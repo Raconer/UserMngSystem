@@ -5,9 +5,9 @@ import com.module.prj.core.domain.exception.FieldError
 import com.module.prj.kakao.application.port.input.SendKakaoMessageUseCase
 import com.module.prj.kakao.infrastructure.adapter.input.rest.dto.request.KakaoSendRequest
 import io.swagger.v3.oas.annotations.Operation
-import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.responses.ApiResponse
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping

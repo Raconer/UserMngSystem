@@ -1,6 +1,5 @@
 package com.module.prj.sms.infrastructure.adapter.output
 
-import com.module.prj.core.domain.kakao.KakaoMessage
 import com.module.prj.core.domain.sms.SmsMessage
 import com.module.prj.sms.application.port.output.SmsSendMessagePort
 import org.slf4j.LoggerFactory
