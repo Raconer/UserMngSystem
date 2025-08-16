@@ -17,12 +17,10 @@ class KakaoSendMessageAdapter : KakaoSendMessagePort {
     override suspend fun send(kakaoMessage: KakaoMessage) {
 
         // @TestCase.1 - 메시지 오류 임의 발생(짝수 번째 오류 발생)
-        /*
             val lastDigit = kakaoMessage.phone.takeLast(1).toIntOrNull()
             if (lastDigit != null && lastDigit % 2 == 0) {
                 throw RuntimeException("임의로 발생시킨 예외 (짝수 번호)")
             }
-        */
 
         log.info("✅ Kakao 메시지 전송 성공 : $kakaoMessage")
     }

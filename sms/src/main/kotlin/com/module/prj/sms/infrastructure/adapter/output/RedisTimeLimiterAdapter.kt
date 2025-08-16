@@ -66,10 +66,18 @@ class RedisTimeLimiterAdapter(
 
             supervisorScope {
                     launch(limitedDispatcher){
-                        log.info("thread: ${Thread.currentThread().name}")
-                        messages.forEach { json ->
-                            val smsMessage = objectMapper.readValue(json, SmsMessage::class.java)
-                            smsSendMessagePort.send(smsMessage)
+
+                        messages.map { json ->
+                            async {
+                                // 논블록킹 테스트
+                                 println("thread: ${Thread.currentThread().name}")
+                                 delay(10000)
+                                 println("NonBlocking: ${Thread.currentThread().name}")
+                                val smsMessage = withContext(Dispatchers.Default) {
+                                    objectMapper.readValue(json, SmsMessage::class.java)
+                                }
+                                smsSendMessagePort.send(smsMessage)
+                            }
                         }
                     }
             }

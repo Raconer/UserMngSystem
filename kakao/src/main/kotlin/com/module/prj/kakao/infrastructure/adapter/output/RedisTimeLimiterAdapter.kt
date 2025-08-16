@@ -74,8 +74,6 @@ class RedisTimeLimiterAdapter(
                 // 각 토큰과 메시지 chunk를 묶어서 병렬 처리
                 val results = kakaoSendTokenList.zip(messageList).map { (token, msgChunk) ->
                     async(limitedDispatcher) {
-
-
                         msgChunk.map { json ->
                             async{
                                 // 논블록킹 테스트
@@ -98,7 +96,6 @@ class RedisTimeLimiterAdapter(
 
                             }
                         }.awaitAll().filterNotNull()
-
                     }
                 }.awaitAll().flatten()  // 모든 async 완료 후 결과 수집
 
