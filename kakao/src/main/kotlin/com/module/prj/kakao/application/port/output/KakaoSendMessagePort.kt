@@ -7,5 +7,5 @@ interface KakaoSendMessagePort {
      * 카카오 메시지 전송 실행
      * @param kakaoMessage 전송할 카카오 메시지 도메인 객체
      */
-    fun send(kakaoMessage: KakaoMessage)
+    suspend fun send(kakaoMessage: KakaoMessage)
 }

@@ -71,35 +71,38 @@ class RedisTimeLimiterAdapter(
             val messageList = divideListEqually(messages, tokenSize)    // 토큰 수만큼 균등 분할 (병렬 처리용)
 
             supervisorScope {
-                val failMessageList = mutableListOf<SmsMessage>() // 실패 메시지 저장 리스트
-
                 // 각 토큰과 메시지 chunk를 묶어서 병렬 처리
                 val results = kakaoSendTokenList.zip(messageList).map { (token, msgChunk) ->
                     async(limitedDispatcher) {
-                        val localFails = mutableListOf<SmsMessage>()
 
-                        log.info("[${msgChunk.size}]Launching for token: $token on thread: ${Thread.currentThread().name}")
-                        msgChunk.forEach { json ->
-                            val kakaoSendMessage = objectMapper.readValue(json, KakaoMessage::class.java)
-                            try {
-                                kakaoSendMessagePort.send(kakaoSendMessage) // 📤 카카오 메시지 전송
-                            } catch (e: Exception) {
-                                // ❗ 예외 발생 시 로그 및 SMS 대체용 메시지로 저장
-                                localFails.add(
+
+                        msgChunk.map { json ->
+                            async{
+                                // 논블록킹 테스트
+                                // println("[${msgChunk.size}]Launching for token: $token on thread: ${Thread.currentThread().name}")
+                                // delay(10000)
+                                // println("NonBlocking: ${Thread.currentThread().name}")
+                                val kakaoSendMessage = withContext(Dispatchers.Default){
+                                    objectMapper.readValue(json, KakaoMessage::class.java)
+                                }
+
+                                runCatching {
+                                    kakaoSendMessagePort.send(kakaoSendMessage) // 📤 카카오 메시지 전송
+                                }.exceptionOrNull()?.let {
+                                    // ❗ 예외 발생 시 로그 및 SMS 대체용 메시지로 저장
                                     SmsMessage(
                                         phone = kakaoSendMessage.phone,
                                         message = kakaoSendMessage.message
                                     )
-                                )
-                            }
-                        }
+                                }
 
-                        localFails  // 각 토큰별 실패 메시지 반환
+                            }
+                        }.awaitAll().filterNotNull()
+
                     }
-                }.awaitAll()  // 모든 async 완료 후 결과 수집
-                // 📢 실패 메시지를 통합 후 SMS 전송 이벤트 발행
-                results.forEach { failMessageList.addAll(it) }
-                eventPublisher.publishEvent(SmsMessageEvent(failMessageList))
+                }.awaitAll().flatten()  // 모든 async 완료 후 결과 수집
+
+                eventPublisher.publishEvent(SmsMessageEvent(results))
             }
         }
         log.info("[$currentTime] Kakao Send Message END!! =============================================")

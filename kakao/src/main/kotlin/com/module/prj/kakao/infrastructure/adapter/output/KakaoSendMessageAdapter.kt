@@ -14,7 +14,7 @@ class KakaoSendMessageAdapter : KakaoSendMessagePort {
 
     private val log = LoggerFactory.getLogger(KakaoSendMessageAdapter::class.java)
 
-    override fun send(kakaoMessage: KakaoMessage) {
+    override suspend fun send(kakaoMessage: KakaoMessage) {
 
         // @TestCase.1 - 메시지 오류 임의 발생(짝수 번째 오류 발생)
         /*
