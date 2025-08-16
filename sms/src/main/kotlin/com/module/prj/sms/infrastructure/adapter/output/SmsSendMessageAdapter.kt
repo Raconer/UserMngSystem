@@ -12,9 +12,9 @@ class SmsSendMessageAdapter() :SmsSendMessagePort {
      * SMS 메시지 전송 시뮬레이션 메서드
      * @param smsMessage 전송할 SMS 메시지 객체
      */
-    override fun send(smsMessage: SmsMessage) {
+    override suspend fun send(smsMessage: SmsMessage) {
         try {
-            log.info("SMS 메시지 전송 성공 : $smsMessage}")
+            log.info("SMS 메시지 전송 성공 : $smsMessage")
         } catch (e: Exception) {
             log.error("❌ 전송 실패")
         }

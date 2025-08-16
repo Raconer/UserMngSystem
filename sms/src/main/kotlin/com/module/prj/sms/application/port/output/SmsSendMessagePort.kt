@@ -7,5 +7,5 @@ interface SmsSendMessagePort {
      * SMS 메시지 전송 처리
      * @param smsMessage 전송할 SMS 메시지 객체
      */
-    fun send(smsMessage: SmsMessage)
+    suspend fun send(smsMessage: SmsMessage)
 }
